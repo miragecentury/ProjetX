@@ -1,0 +1,187 @@
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 3.2.0
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]>
+<!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('BPC - ' . $this->translate('GameHub') . ' -')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php
+        echo $this->headMeta()
+                ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+                ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta content="Black Pony Company" name="description">
+        <meta content="MirageCentury" name="author">
+
+
+        <?php
+        echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                //BEGIN GLOBAL MANDATORY STYLES
+                ->appendStylesheet($this->basePath() . '/css/fonts.css')
+                ->appendStylesheet($this->basePath() . '/assets/global/plugins/font-awesome/css/font-awesome.min.css')
+                ->appendStylesheet($this->basePath() . '/assets/global/plugins/simple-line-icons/simple-line-icons.min.css')
+                ->appendStylesheet($this->basePath() . '/assets/global/plugins/bootstrap/css/bootstrap.min.css')
+                ->appendStylesheet($this->basePath() . '/assets/global/plugins/uniform/css/uniform.default.css')
+                ->appendStylesheet($this->basePath() . '/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css')
+                ->appendStylesheet($this->basePath() . '/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css')
+                //END GLOBAL MANDATORY STYLES
+                //BEGIN THEME STYLES
+                ->appendStylesheet($this->basePath() . '/assets/global/css/components.css')
+                ->appendStylesheet($this->basePath() . '/assets/global/css/plugins.css')
+                ->appendStylesheet($this->basePath() . '/assets/admin/layout2/css/layout.css')
+                ->appendStylesheet($this->basePath() . '/assets/admin/layout2/css/themes/blue.css')
+                ->appendStylesheet($this->basePath() . '/assets/admin/layout2/css/custom.css')
+        //END THEME STYLES
+        ?>
+    </head>
+    <!-- END HEAD -->
+    <!-- BEGIN BODY -->
+    <body class="page-header-fixed page-container-bg-solid page-sidebar-closed-hide-logo page-header-fixed-mobile page-footer-fixed1">
+        <!-- BEGIN HEADER -->
+        <div class="page-header navbar navbar-fixed-top">
+            <!-- BEGIN HEADER INNER -->
+            <div class="page-header-inner">
+                <!-- BEGIN LOGO -->
+                <div class="page-logo">
+                    <a href="<?= $this->url("home_connected") ?>">
+                        <img src="/assets/admin/layout2/img/logo-default.png" alt="logo" class="logo-default">
+                    </a>
+                    <div class="menu-toggler sidebar-toggler">
+                        <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+                    </div>
+                </div>
+                <!-- END LOGO -->
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                </a>
+                <!-- END RESPONSIVE MENU TOGGLER -->
+
+                <!-- BEGIN PAGE ACTIONS -->
+                <!-- DOC: Remove "hide" class to enable the page header actions -->
+                <div class="page-actions">
+
+                </div>
+                <!-- END PAGE ACTIONS -->
+                <!-- BEGIN PAGE TOP -->
+                <div class="page-top">
+                    <!-- BEGIN HEADER SEARCH BOX -->
+                    <!-- BEGIN TOP NAVIGATION MENU -->
+                    <div class="top-menu">
+                        <ul class="nav navbar-nav pull-right">
+                            <?php if (isset($this->part_notification_modo)): ?>
+                                <?php echo $this->part_notification_modo ?>
+                            <?php endif; ?>
+                            <?php if (isset($this->part_notification)): ?>
+                                <?php echo $this->part_notification ?>
+                            <?php endif; ?>
+                            <?php if (isset($this->part_user)): ?>
+                                <?php echo $this->part_user ?>
+                            <?php endif; ?>
+                            <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                            <li class="dropdown dropdown-quick-sidebar-toggler">
+                                <a href="<?php echo $this->url("home_logout") ?>" class="dropdown-toggle">
+                                    <i class="icon-logout"></i>
+                                </a>
+                            </li>
+                            <!-- END QUICK SIDEBAR TOGGLER -->
+                        </ul>
+                    </div>
+                    <!-- END TOP NAVIGATION MENU -->
+                </div>
+                <!-- END PAGE TOP -->
+            </div>
+            <!-- END HEADER INNER -->
+        </div>
+        <!-- END HEADER -->
+        <div class="clearfix">
+        </div>
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            <div class="page-sidebar-wrapper">
+                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                <div class="page-sidebar navbar-collapse collapse">
+                    <?php if (isset($this->part_menuleft)): ?>
+                        <?php echo $this->part_menuleft ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <!-- END SIDEBAR -->
+
+
+            <!-- BEGIN QUICK SIDEBAR -->
+            <!--Cooming Soon...-->
+            <!-- END QUICK SIDEBAR -->
+
+            <?php echo $this->content ?>
+
+        </div>
+        <!-- END CONTAINER -->
+        <!-- BEGIN FOOTER -->
+        <div class="page-footer">
+            <div class="page-footer-inner">
+                <span >
+                    2015 -- Black Pony Company //
+                    2014 © Metronic by keenthemes.
+                </span>
+            </div>
+            <div class="scroll-to-top">
+                <i class="icon-arrow-up"></i>
+            </div>
+        </div>
+        <!-- END FOOTER -->
+        <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+        <!-- BEGIN CORE PLUGINS -->
+        <!--[if lt IE 9]>
+        <script src="<?php echo $this->basePath() ?>/assets/global/plugins/respond.min.js"></script>
+        <script src="<?php echo $this->basePath() ?>/assets/global/plugins/excanvas.min.js"></script> 
+        <![endif]-->
+
+        <?php
+        echo $this->inlineScript()
+                ->appendFile($this->basePath() . '/assets/global/plugins/jquery-1.11.0.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/jquery-migrate-1.2.1.min.js')
+                // IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip
+                ->appendFile($this->basePath() . '/assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/bootstrap/js/bootstrap.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/jquery.blockui.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/jquery.cokie.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/uniform/jquery.uniform.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')
+                //
+                ->appendFile($this->basePath() . '/assets/global/scripts/metronic.js')
+                ->appendFile($this->basePath() . '/assets/admin/layout2/scripts/layout.js')
+                ->appendFile($this->basePath() . '/assets/admin/layout2/scripts/demo.js')
+                ->appendFile($this->basePath() . "/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js")
+                ->appendScript("
+                jQuery(document).ready(function() {     
+                        jQuery(document).ready(function () {
+                        Metronic.init(); // init metronic core components
+                        Layout.init(); // init current layout
+                        Demo.init();
+                    });
+                });
+                ", "text/javascript");
+        ?>
+        <!-- END BODY -->
+    </body>
+</html>

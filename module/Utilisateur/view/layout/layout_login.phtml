@@ -1,0 +1,115 @@
+<?php echo $this->doctype(); ?>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 3.1.3
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest (the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="fr" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="fr" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="fr">
+    <!--<![endif]-->
+
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('BPC - ' . $this->translate('GameHub') . ' - Login')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php
+        echo $this->headMeta()
+                ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+                ->appendHttpEquiv('X-UA-Compatible', 'IE=edge,chrome=1')
+        ?>
+
+        <meta content="" name="description"/>
+        <meta content="" name="author"/>
+
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+
+        <?php
+        echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                ->appendStylesheet($this->basePath() . '/assets/global/plugins/font-awesome/css/font-awesome.min.css')
+                ->appendStylesheet($this->basePath() . '/assets/global/plugins/simple-line-icons/simple-line-icons.min.css')
+                ->appendStylesheet($this->basePath() . '/assets/global/plugins/bootstrap/css/bootstrap.min.css')
+                ->appendStylesheet($this->basePath() . '/assets/global/plugins/uniform/css/uniform.default.css')
+                ->appendStylesheet($this->basePath() . '/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css')
+                ->appendStylesheet($this->basePath() . '/assets/global/plugins/select2/select2.css')
+                ->appendStylesheet($this->basePath() . '/assets/admin/pages/css/login.css')
+                ->appendStylesheet($this->basePath() . '/assets/global/css/components.css')
+                ->appendStylesheet($this->basePath() . '/assets/global/css/plugins.css')
+                ->appendStylesheet($this->basePath() . '/assets/global/plugins/clockface/css/clockface.css')
+                ->appendStylesheet($this->basePath() . '/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css')
+                ->appendStylesheet($this->basePath() . '/assets/global/plugins/bootstrap-colorpicker/css/colorpicker.css')
+                ->appendStylesheet($this->basePath() . '/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css')
+                ->appendStylesheet($this->basePath() . '/assets/global/plugins/bootstrap-datetimepicker/css/datetimepicker.css')
+                ->appendStylesheet($this->basePath() . '/assets/global/plugins/bootstrap-datepicker/css/datepicker3.css')
+                ->appendStylesheet($this->basePath() . '/assets/admin/layout/css/layout.css')
+                ->appendStylesheet($this->basePath() . '/assets/admin/layout/css/themes/default.css')
+                ->appendStylesheet($this->basePath() . '/assets/admin/layout/css/custom.css');
+        echo $this->headScript()
+                ->appendFile($this->basePath() . '/assets/global/plugins/jquery-1.11.0.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/jquery-migrate-1.2.1.min.js');
+        ?>
+    </head>
+    <body class="login">
+        <?php echo $this->content; ?>
+
+        <!-- END COPYRIGHT -->
+        <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+        <!-- BEGIN CORE PLUGINS -->
+        <!--[if lt IE 9]>
+        <script src="/assets/global/plugins/respond.min.js"></script>
+        <script src="/assets/global/plugins/excanvas.min.js"></script> 
+        <![endif]-->
+        <?php
+        echo $this->inlineScript()
+                //->appendFile($this->basePath() . '/assets/global/plugins/jquery-1.11.0.min.js')
+                //->appendFile($this->basePath() . '/assets/global/plugins/jquery-migrate-1.2.1.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/bootstrap/js/bootstrap.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/jquery.blockui.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/jquery.cokie.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/uniform/jquery.uniform.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/jquery-validation/js/jquery.validate.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/select2/select2.min.js')
+                ->appendFile($this->basePath() . '/assets/global/scripts/metronic.js')
+                ->appendFile($this->basePath() . '/assets/admin/layout/scripts/layout.js')
+                ->appendFile($this->basePath() . '/assets/admin/layout/scripts/quick-sidebar.js')
+                ->appendFile($this->basePath() . '/assets/admin/layout/scripts/demo.js')
+                ->appendFile($this->basePath() . '/assets/admin/pages/scripts/login.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/clockface/js/clockface.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/bootstrap-daterangepicker/moment.min.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js')
+                ->appendFile($this->basePath() . '/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')
+                ->appendScript("
+                jQuery(document).ready(function() {     
+                    Metronic.init(); // init metronic core components
+                    Layout.init(); // init current layout
+                    QuickSidebar.init(); // init quick sidebar
+                    Demo.init(); // init demo features
+                    Login.init();
+                    if (jQuery().datepicker) {
+                        $('.date-picker').datepicker({
+                            rtl: Metronic.isRTL(),
+                            orientation: 'left',
+                            autoclose: true
+                        });
+                        //$('body').removeClass('modal-open'); // fix bug when inline picker is used in modal
+                    }
+                    $('.date-picker').removeClass('input-medium');
+                });
+                ", "text/javascript");
+        ?>
+    </body>
+</html>
