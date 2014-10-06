@@ -21,7 +21,7 @@ return array(
                     'port' => '3306',
                     'user' => 'root',
                     'username' => 'root',
-                    'password' => 'degrasse',
+                    'password' => 'degrasse03',
                     'dbname' => 'dev_a3',
                 ),
             ),
