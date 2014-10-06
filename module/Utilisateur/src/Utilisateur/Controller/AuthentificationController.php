@@ -52,7 +52,18 @@ class AuthentificationController extends AbstractActionController {
 
     public function inscriptionAction() {
         $inscriptionForm = new InscriptionForm($this->getServiceLocator()->get("Utilisateur\Mapper\Pays"));
-        return $this->inscriptionView($inscriptionForm);
+        if ($this->getRequest()->isPOST()) {
+            $inscriptionForm->setData($this->getRequest()->getPOST());
+            if ($inscriptionForm->isValid()) {
+                $email = $inscriptionForm->get("email")->getValue();
+                $username = $inscriptionForm->get("username")->getValue();
+                
+            } else {
+                return $this->inscriptionView($inscriptionForm, null, "Vérifier le format des données que vous avez entré.");
+            }
+        } else {
+            return $this->inscriptionView($inscriptionForm);
+        }
     }
 
     private function inscriptionView(InscriptionForm $inscriptionForm, $messageErr = null, $messageWarn = null) {

@@ -10,3 +10,4 @@ composer.lock
 vendor/bin
 data/apache/error.log
 data/apache/access.log
+config/autoload/local.php
