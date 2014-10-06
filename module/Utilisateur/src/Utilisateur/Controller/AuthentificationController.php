@@ -38,7 +38,7 @@ class AuthentificationController extends AbstractActionController {
             "form_login" => new LoginForm(),
             "form_login_messageErr" => $messageErr,
             "form_login_messageWarn" => $messageWarn,
-            "form_inscription" => new InscriptionForm(),
+            "form_inscription" => new InscriptionForm($this->getServiceLocator()->get("Utilisateur\Mapper\Pays")),
         ));
         $this->layout("layout/layout_login");
         return $viewModel;
@@ -51,7 +51,7 @@ class AuthentificationController extends AbstractActionController {
     }
 
     public function inscriptionAction() {
-        $inscriptionForm = new InscriptionForm();
+        $inscriptionForm = new InscriptionForm($this->getServiceLocator()->get("Utilisateur\Mapper\Pays"));
         return $this->inscriptionView($inscriptionForm);
     }
 
@@ -80,6 +80,16 @@ class AuthentificationController extends AbstractActionController {
 
     public function passwordresetView(LostpasswordForm $lostpasswordForm, $messageErr = null, $messageWarn = null) {
         
+    }
+
+    public function confpolAction() {
+        $this->layout("layout/layout_login");
+        return new ViewModel();
+    }
+
+    public function condutilAction() {
+        $this->layout("layout/layout_login");
+        return new ViewModel();
     }
 
 }

@@ -1,13 +1,25 @@
 <!-- BEGIN SIDEBAR MENU -->
 <ul class="page-sidebar-menu page-sidebar-menu-hover-submenu " data-auto-scroll="true" data-slide-speed="200">
-    <li class="start active">
+    <?php
+    $active = "";
+    if ($this->ControllerName() == "Utilisateur\Controller\Index") {
+        $active = "active";
+    }
+    ?>
+    <li class="start <?php echo $active ?>">
         <a href="<?php echo $this->url("home_connected") ?>">
             <i class="icon-home"></i>
             <span class="title">Home</span>
             <span class="selected"></span>
         </a>
     </li>
-    <li>
+    <?php
+    $active = "";
+    if ($this->ControllerName() == "Utilisateur\Controller\Personnage") {
+        $active = "active";
+    }
+    ?>
+    <li class="<?php echo $active; ?>">
         <a href="<?php echo $this->url("home_connected", array("controller" => "personnage")) ?>
            ">
             <i class="icon-user"></i>

@@ -91,4 +91,10 @@ return array(
             'Zend\Session\Validator\HttpUserAgent',
         ),
     ),
+    'view_helpers' => array(
+        'invokables' => array(
+            'ControllerName' => 'BPC\View\Helper\ControllerName',
+            'ActionName' => 'BPC\View\Helper\ActionName',
+        ),
+    ),
 );

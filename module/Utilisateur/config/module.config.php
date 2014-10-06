@@ -23,6 +23,26 @@ return array(
                     ),
                 ),
             ),
+            'home_condutil' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/condutil',
+                    'defaults' => array(
+                        'controller' => 'Utilisateur\Controller\Authentification',
+                        'action' => 'condutil',
+                    ),
+                ),
+            ),
+            'home_confpol' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/confpol',
+                    'defaults' => array(
+                        'controller' => 'Utilisateur\Controller\Authentification',
+                        'action' => 'confpol',
+                    ),
+                ),
+            ),
             'home_inscription' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
@@ -54,8 +74,9 @@ return array(
         'factories' => array(
         ),
         'invokables' => array(
-            //--Mapper:
             "BPC\Authentication\Adapter\BPCAdapter" => "BPC\Authentication\Adapter\BPCAdapter",
+            //--Mapper:
+            "Utilisateur\Mapper\Pays" => "Utilisateur\Mapper\PaysMapper",
         //--Service:
         ),
     ),
@@ -104,5 +125,21 @@ return array(
                 ),
             ),
         ),
+    ),
+    'view_helpers' => array(
+        'invokables' => array(
+        ),
+        "factories" => array(
+            'ControllerName' => function ($sm) {
+                $match = $sm->getServiceLocator()->get('application ')->getMvcEvent()->getRouteMatch();
+                $viewHelper = new \BPC\View\Helper\ControllerName($match);
+                return $viewHelper;
+            },
+            'ActionName' => function ($sm) {
+                $match = $sm->getServiceLocator()->get('application ')->getMvcEvent()->getRouteMatch();
+                $viewHelper = new \BPC\View\Helper\ActionName($match);
+                return $viewHelper;
+            },
+        )
     ),
 );

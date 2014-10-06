@@ -19,6 +19,12 @@ class Island {
     /** @ORM\Column(type="string") */
     protected $label;
 
+    /** @ORM\Column(type="boolean") */
+    protected $active;
+
+    /** @ORM\Column(type="boolean") */
+    protected $public;
+
     /**     * */
     protected $sizeX;
     protected $sizeY;
