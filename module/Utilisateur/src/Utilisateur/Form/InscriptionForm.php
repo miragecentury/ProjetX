@@ -24,9 +24,7 @@ class InscriptionForm extends Form {
         $datenai = new Date("datenai");
         $pays = new Select("pays");
         $options = $this->computeOptions($paysMapper);
-        foreach ($options as $key => $option) {
-            $pays->setOption($key, $option);
-        }
+        $pays->setValueOptions($options);
         $adresse = new Text("adresse");
         $ville = new Text("ville");
         $portable = new Text("portable");
@@ -37,10 +35,13 @@ class InscriptionForm extends Form {
         $passwd1 = new Password("passwd1");
         $csrf = new Csrf("token_csrf");
         $datenai->setOptions(array(
-            'format' => 'm/d/Y'
+            'format' => 'd/m/Y'
         ));
         /**/
         $check_rights = new Checkbox("rights");
+        $check_rights->setUseHiddenElement(true);
+        $check_rights->setCheckedValue("on");
+        $check_rights->setUncheckedValue("off");
         /**/
         $this->add($nom);
         $this->add($prenom);

@@ -21,7 +21,16 @@ class AuthentificationController extends AbstractActionController {
                 $auth->setAdapter($authentificationAdapter);
                 $auth->authenticate();
                 if ($this->identity() != null) {
-                    return $this->redirect()->toRoute("home_connected");
+                    $User = $this->identity();
+                    if ($User->getEmailvalidate()) {
+                        if ($User->getFirstconnect()) {
+                            return $this->redirect()->toRoute("home_connected");
+                        } else {
+                            return $this->redirect()->toRoute("home_connected", array("controller" => "index", "action" => "firstconnect"));
+                        }
+                    } else {
+                        return $this->loginView($loginForm, null, "Merci de valider votre adresse email.<br/> Vérifier votre boîte email et cliquer sur le lien d'activation.");
+                    }
                 } else {
                     return $this->loginView($loginForm, null, "Combinaison Email, Password incorrecte.");
                 }
@@ -55,9 +64,32 @@ class AuthentificationController extends AbstractActionController {
         if ($this->getRequest()->isPOST()) {
             $inscriptionForm->setData($this->getRequest()->getPOST());
             if ($inscriptionForm->isValid()) {
+                $UserMapper = $this->getServiceLocator()->get("A3\Common\Mapper\User");
                 $email = $inscriptionForm->get("email")->getValue();
                 $username = $inscriptionForm->get("username")->getValue();
-                
+                //Vérification de l'unicité de l'email
+                $User = $UserMapper->findOneByEmail($email);
+                if (!(is_a($User, "A3\Common\Entity\User"))) {
+                    //Vérification de l'unicité de l'username
+                    $User = $UserMapper->findOneByUsername($username);
+                    if (!(is_a($User, "A3\Common\Entity\User"))) {
+                        //Vérification du mot de passe et de control
+                        if ($inscriptionForm->get("passwd0")->getValue() == $inscriptionForm->get("passwd1")->getValue()) {
+                            $UserService = $this->getServiceLocator()->get("A3\Common\Service\User");
+                            if ($UserService->createUser($inscriptionForm)) {
+                                return $this->endinscriptionView();
+                            } else {
+                                return $this->inscriptionView($inscriptionForm, "Problème lors de la creation du compte. Veuillez contacter un administrateur.");
+                            }
+                        } else {
+                            return $this->inscriptionView($inscriptionForm, null, "Les deux mot de passe ne sont pas identique.");
+                        }
+                    } else {
+                        return $this->inscriptionView($inscriptionForm, null, "L'Username est déjà enregistré.");
+                    }
+                } else {
+                    return $this->inscriptionView($inscriptionForm, null, "L'email est déjà enregistré.");
+                }
             } else {
                 return $this->inscriptionView($inscriptionForm, null, "Vérifier le format des données que vous avez entré.");
             }
@@ -82,6 +114,13 @@ class AuthentificationController extends AbstractActionController {
                 jQuery('.register-form').show();
             });
         ");
+        return $viewModel;
+    }
+
+    private function endinscriptionView() {
+        $this->layout("layout/layout_login");
+        $viewModel = new ViewModel();
+        $viewModel->setTemplate("utilisateur/authentification/endinscription");
         return $viewModel;
     }
 

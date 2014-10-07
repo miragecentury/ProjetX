@@ -31,13 +31,20 @@ class User {
     /** @ORM\Column(type="datetime") */
     protected $datenai;
 
+    /**     * */
+
     /** @ORM\Column(type="datetime") */
     protected $datecrea;
 
+    /** @ORM\Column(type="boolean") */
+    protected $emailvalidate = false;
+
+    /** @ORM\Column(type="boolean") */
+    protected $firstconnect = true;
     /**     * */
 
     /** @ORM\Column(type="integer") */
-    protected $preniumLevel;
+    protected $preniumLevel = 0;
 
     /** @ORM\Column(type="datetime",nullable=true) */
     protected $preniumEndDate;
@@ -249,6 +256,24 @@ class User {
 
     function setIsAuthorizeConnectDev($isAuthorizeConnectDev) {
         $this->isAuthorizeConnectDev = $isAuthorizeConnectDev;
+        return $this;
+    }
+
+    function getEmailvalidate() {
+        return $this->emailvalidate;
+    }
+
+    function getFirstconnect() {
+        return $this->firstconnect;
+    }
+
+    function setEmailvalidate($emailvalidate) {
+        $this->emailvalidate = $emailvalidate;
+        return $this;
+    }
+
+    function setFirstconnect($firstconnect) {
+        $this->firstconnect = $firstconnect;
         return $this;
     }
 

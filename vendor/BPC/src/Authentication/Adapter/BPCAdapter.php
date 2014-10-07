@@ -44,7 +44,7 @@ class BPCAdapter implements AdapterInterface, ServiceLocatorAwareInterface {
         }
         $UserMapper = $this->getServiceLocator()->get("A3\Common\Mapper\User");
         $UserMapper->setServiceLocator($this->getServiceLocator());
-        $User = $UserMapper->getOneUserByEmail($this->email);
+        $User = $UserMapper->findOneByEmail($this->email);
         if ($User != null) {
             if (base64_encode(\mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($User->getSalt()), $this->password, MCRYPT_MODE_CBC, md5(md5($User->getSalt())))) == $User->getHash()) {
                 return new Result(Result::SUCCESS, $User);

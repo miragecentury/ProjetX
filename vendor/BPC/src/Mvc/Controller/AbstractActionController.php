@@ -4,6 +4,7 @@ namespace BPC\Mvc\Controller;
 
 use A3\Entity\User;
 use Zend\Mvc\Controller as ZController;
+use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ViewModel;
 
 class AbstractActionController extends ZController\AbstractActionController {
@@ -36,7 +37,7 @@ class AbstractActionController extends ZController\AbstractActionController {
         }
     }
 
-    public function onDispatch(\Zend\Mvc\MvcEvent $e) {
+    public function onDispatch(MvcEvent $e) {
         if (static::needAuth) {
             $auth = $this->getServiceLocator()->get("Zend\Authentication\AuthenticationService");
             if (!$auth->hasIdentity()) {

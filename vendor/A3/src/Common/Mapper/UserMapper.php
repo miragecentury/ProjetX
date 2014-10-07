@@ -9,7 +9,7 @@ class UserMapper implements ServiceLocatorAwareInterface {
 
     use ServiceLocatorAwareTrait;
 
-    public function getOneUserByEmail($email) {
+    public function findOneByEmail($email) {
         $em = $this->getServiceLocator()->get("Doctrine\ORM\EntityManager");
         $repository = $em->getRepository("A3\Common\Entity\User");
         $user = $repository->findOneBy(array("email" => $email));
@@ -23,7 +23,14 @@ class UserMapper implements ServiceLocatorAwareInterface {
         return $user;
     }
 
-    public function getAll() {
+    public function findOneByUsername($username) {
+        $em = $this->getServiceLocator()->get("Doctrine\ORM\EntityManager");
+        $repository = $em->getRepository("A3\Common\Entity\User");
+        $user = $repository->findOneBy(array("username" => $username));
+        return $user;
+    }
+
+    public function findAll() {
         $em = $this->getServiceLocator()->get("Doctrine\ORM\EntityManager");
         $repository = $em->getRepository("A3\Common\Entity\User");
         return $repository->findAll();

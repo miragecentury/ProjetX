@@ -16,9 +16,14 @@
             <button class="close" data-close="alert"></button>
             <span> Entrer un email et un password. </span>
         </div>
-        <?php if (isset($this->error)): ?>
+        <?php if (isset($this->form_login_messageErr)): ?>
             <div class="alert alert-danger">
-                <strong>Attention!</strong> <?= $this->error ?>
+                <strong>Erreur!</strong> <br/><?php echo $this->form_login_messageErr ?>
+            </div>
+        <?php endif; ?>
+        <?php if (isset($this->form_login_messageWarn)): ?>
+            <div class="alert alert-warning">
+                <strong>Attention!</strong><br/> <?php echo $this->form_login_messageWarn ?>
             </div>
         <?php endif; ?>
 
@@ -105,67 +110,136 @@
     </form>
     <!-- END FORGOT PASSWORD FORM -->
     <!-- BEGIN REGISTRATION FORM -->
-    <form class="register-form" method="post">
+    <form class="register-form" action="<?php echo $this->url("home_inscription"); ?>" method="post">
 
         <input type="hidden" name="<?php echo $this->form_inscription->get("token_csrf")->getName(); ?>" value="<?php echo $this->form_inscription->get("token_csrf")->getValue(); ?>" />
         <h3>Inscription</h3>
         <p>
             Entrez vos détails personnels:
         </p>
+
+        <?php if (isset($this->form_inscription_messageErr) && !empty($this->form_inscription_messageErr)): ?>
+            <div class="alert alert-error">
+                <strong><?php echo $this->form_inscription_messageErr ?></strong>
+            </div>
+        <?php endif; ?>
+        <?php if (isset($this->form_inscription_messageWarn) && !empty($this->form_inscription_messageWarn)): ?>
+            <div class="alert alert-warning">
+                <strong><?php echo $this->form_inscription_messageWarn ?></strong>
+            </div>
+        <?php endif; ?>
+        <?php if (count($this->form_inscription->getMessages()) > 0): ?>
+            <?php foreach ($this->form_inscription->getMessages() as $key => $message): ?> 
+                <div class="alert alert-warning">
+                    <strong> <?php echo $key ?></strong>
+                    <strong><?php var_dump($message) ?></strong>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
             <label class="control-label visible-ie8 visible-ie9">Email</label>
             <div class="input-icon">
                 <i class="fa fa-envelope"></i>
-                <input class="form-control placeholder-no-fix" type="text" placeholder="Email" name="<?php echo $this->form_inscription->get("email")->getName(); ?>"/>
+                <input class="form-control placeholder-no-fix" type="text" placeholder="Email" name="<?php echo $this->form_inscription->get("email")->getName(); ?>" value="<?php echo $this->form_inscription->get("email")->getValue(); ?>"/>
             </div>
         </div>
+        <?php if (count($this->form_inscription->get("email")) > 0): ?>
+            <?php foreach ($this->form_inscription->get("email")->getMessages() as $message): ?> 
+                <div class="alert alert-warning">
+                    <strong><?php echo $message ?></strong>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
             <label class="control-label visible-ie8 visible-ie9">Nom</label>
             <div class="input-icon">
                 <i class="fa fa-user"></i>
-                <input class="form-control placeholder-no-fix" type="text" placeholder="Nom" name="<?php echo $this->form_inscription->get("nom")->getName(); ?>"/>
+                <input class="form-control placeholder-no-fix" type="text" placeholder="Nom" name="<?php echo $this->form_inscription->get("nom")->getName(); ?>" value="<?php echo $this->form_inscription->get("nom")->getValue(); ?>"/>
             </div>
         </div>
+        <?php if (count($this->form_inscription->get("nom")) > 0): ?>
+            <?php foreach ($this->form_inscription->get("nom")->getMessages() as $message): ?> 
+                <div class="alert alert-warning">
+                    <strong><?php echo $message ?></strong>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
             <label class="control-label visible-ie8 visible-ie9">Prénom</label>
             <div class="input-icon">
                 <i class="fa fa-user"></i>
-                <input class="form-control placeholder-no-fix" type="text" placeholder="Prénom" name="<?php echo $this->form_inscription->get("prenom")->getName(); ?>"/>
+                <input class="form-control placeholder-no-fix" type="text" placeholder="Prénom" name="<?php echo $this->form_inscription->get("prenom")->getName(); ?>" value="<?php echo $this->form_inscription->get("prenom")->getValue(); ?>"/>
             </div>
         </div>
+        <?php if (count($this->form_inscription->get("prenom")) > 0): ?>
+            <?php foreach ($this->form_inscription->get("prenom")->getMessages() as $message): ?> 
+                <div class="alert alert-warning">
+                    <strong><?php echo $message ?></strong>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
         <div class="form-group">
             <div class="input-icon">
                 <i class="fa fa-calendar"></i>
-                <input style="width: 100%;" class="form-control date-picker"  type="text" placeholder="Date de Naissance" value="<?php echo $this->form_inscription->get("datenai")->getValue(); ?>" name="<?php echo $this->form_inscription->get("datenai")->getName(); ?>"/>
+                <input style="width: 100%;" class="form-control date-picker" data-date-format="dd-mm-yyyy"  type="text" placeholder="Date de Naissance" value="<?php echo $this->form_inscription->get("datenai")->getValue(); ?>" name="<?php echo $this->form_inscription->get("datenai")->getName(); ?>" value="<?php echo $this->form_inscription->get("datenai")->getValue(); ?>"/>
             </div>
         </div>
+        <?php if (count($this->form_inscription->get("datenai")) > 0): ?>
+            <?php foreach ($this->form_inscription->get("datenai")->getMessages() as $message): ?> 
+                <div class="alert alert-warning">
+                    <strong><?php echo $message ?></strong>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
         <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">Addresse (Facultatif)</label>
             <div class="input-icon">
                 <i class="fa fa-check"></i>
-                <input class="form-control placeholder-no-fix" type="text" placeholder="Address (Facultatif)" name="<?php echo $this->form_inscription->get("adresse")->getName(); ?>"/>
+                <input class="form-control placeholder-no-fix" type="text" placeholder="Address (Facultatif)" name="<?php echo $this->form_inscription->get("adresse")->getName(); ?>" value="<?php echo $this->form_inscription->get("adresse")->getValue(); ?>"/>
             </div>
         </div>
+        <?php if (count($this->form_inscription->get("adresse")) > 0): ?>
+            <?php foreach ($this->form_inscription->get("adresse")->getMessages() as $message): ?> 
+                <div class="alert alert-warning">
+                    <strong><?php echo $message ?></strong>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
         <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">Ville (Facultatif)</label>
             <div class="input-icon">
                 <i class="fa fa-location-arrow"></i>
-                <input class="form-control placeholder-no-fix" type="text" placeholder="Ville (Facultatif)" name="<?php echo $this->form_inscription->get("ville")->getName(); ?>"/>
+                <input class="form-control placeholder-no-fix" type="text" placeholder="Ville (Facultatif)" name="<?php echo $this->form_inscription->get("ville")->getName(); ?>" value="<?php echo $this->form_inscription->get("ville")->getValue(); ?>"/>
             </div>
         </div>
+        <?php if (count($this->form_inscription->get("ville")) > 0): ?>
+            <?php foreach ($this->form_inscription->get("ville")->getMessages() as $message): ?> 
+                <div class="alert alert-warning">
+                    <strong><?php echo $message ?></strong>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
         <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">Portable</label>
             <div class="input-icon">
                 <i class="fa fa-phone"></i>
-                <input class="form-control placeholder-no-fix" type="text" placeholder="Portable" name="<?php echo $this->form_inscription->get("portable")->getName(); ?>"/>
+                <input class="form-control placeholder-no-fix" type="text" placeholder="Portable" name="<?php echo $this->form_inscription->get("portable")->getName(); ?>" value="<?php echo $this->form_inscription->get("portable")->getValue(); ?>"/>
             </div>
         </div>
+        <?php if (count($this->form_inscription->get("portable")) > 0): ?>
+            <?php foreach ($this->form_inscription->get("portable")->getMessages() as $message): ?> 
+                <div class="alert alert-warning">
+                    <strong><?php echo $message ?></strong>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
         <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">Pays</label>
-            <select name="<?php echo $this->form_inscription->get("pays")->getName(); ?>" id="select2_sample4" class="select2 form-control">
+            <select name="<?php echo $this->form_inscription->get("pays")->getName(); ?>" id="select2_sample4" class="select2 form-control" value="<?php echo $this->form_inscription->get("pays")->getValue(); ?>">
                 <option value=""></option>
                 <option value="AF">Afghanistan</option>
                 <option value="AL">Albania</option>
@@ -404,6 +478,13 @@
                 <option value="ZW">Zimbabwe</option>
             </select>
         </div>
+        <?php if (count($this->form_inscription->get("pays")) > 0): ?>
+            <?php foreach ($this->form_inscription->get("pays")->getMessages() as $message): ?> 
+                <div class="alert alert-warning">
+                    <strong><?php echo $message ?></strong>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
         <p>
             Entrer vos détails de compte:
         </p>
@@ -411,16 +492,30 @@
             <label class="control-label visible-ie8 visible-ie9">Username</label>
             <div class="input-icon">
                 <i class="fa fa-user"></i>
-                <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="<?php echo $this->form_inscription->get("username")->getName(); ?>"/>
+                <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="<?php echo $this->form_inscription->get("username")->getName(); ?>" value="<?php echo $this->form_inscription->get("username")->getValue(); ?>"/>
             </div>
         </div>
+        <?php if (count($this->form_inscription->get("username")) > 0): ?>
+            <?php foreach ($this->form_inscription->get("username")->getMessages() as $message): ?> 
+                <div class="alert alert-warning">
+                    <strong><?php echo $message ?></strong>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
         <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">Mot de Passe</label>
             <div class="input-icon">
                 <i class="fa fa-lock"></i>
-                <input class="form-control placeholder-no-fix" type="password" autocomplete="off" id="register_password" placeholder="Password" name="<?php echo $this->form_inscription->get("passwd0")->getName(); ?>"/>
+                <input class="form-control placeholder-no-fix" type="password" autocomplete="off" id="register_password" placeholder="Password" name="<?php echo $this->form_inscription->get("passwd0")->getName(); ?>" />
             </div>
         </div>
+        <?php if (count($this->form_inscription->get("passwd0")) > 0): ?>
+            <?php foreach ($this->form_inscription->get("passwd0")->getMessages() as $message): ?> 
+                <div class="alert alert-warning">
+                    <strong><?php echo $message ?></strong>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
         <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">Re-taper votre Mot de Passe</label>
             <div class="controls">
@@ -442,9 +537,9 @@
         </div>
         <div class="form-actions">
             <button id="register-back-btn" type="button" class="btn">
-                <i class="m-icon-swapleft"></i> Back </button>
+                <i class="m-icon-swapleft"></i> Retour </button>
             <button type="submit" id="register-submit-btn" class="btn green pull-right">
-                Sign Up <i class="m-icon-swapright m-icon-white"></i>
+                Inscription <i class="m-icon-swapright m-icon-white"></i>
             </button>
         </div>
     </form>
