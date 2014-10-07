@@ -49,7 +49,7 @@ class DefaultMail implements ServiceLocatorAwareInterface {
             'mailTemplate' => $this->pathToTemplate
         ));
         $view->setResolver($resolver);
-
+        
         $viewModel = new \Zend\View\Model\ViewModel();
         $viewModel->setTemplate('mailTemplate')
                 ->setVariables($this->variables);
