@@ -39,6 +39,9 @@ class User {
     /** @ORM\Column(type="boolean") */
     protected $emailvalidate = false;
 
+    /** @ORM\Column(type="string",nullable=true) */
+    protected $emailvalidatetoken;
+
     /** @ORM\Column(type="boolean") */
     protected $firstconnect = true;
     /**     * */
@@ -112,19 +115,19 @@ class User {
     /**     * */
 
     /**
-     * @ORM\OneToMany(targetEntity="A3\Common\Entity\Personnage",mappedBy="User")
+     * @ORM\OneToMany(targetEntity="Personnage",mappedBy="User")
      */
     protected $Personnages;
 
     /**     * */
 
     /**
-     * @ORM\ManyToOne(targetEntity="A3\Common\Entity\Side", inversedBy="Users")
+     * @ORM\ManyToOne(targetEntity="Side", inversedBy="Users")
      */
     protected $Side;
 
     /**
-     * @ORM\ManyToOne(targetEntity="A3\Common\Entity\Grade", inversedBy="Users")
+     * @ORM\ManyToOne(targetEntity="Grade", inversedBy="Users")
      */
     protected $Grade;
 
@@ -274,6 +277,150 @@ class User {
 
     function setFirstconnect($firstconnect) {
         $this->firstconnect = $firstconnect;
+        return $this;
+    }
+
+    function getEmailvalidatetoken() {
+        return $this->emailvalidatetoken;
+    }
+
+    function getPreniumLevel() {
+        return $this->preniumLevel;
+    }
+
+    function getPreniumEndDate() {
+        return $this->preniumEndDate;
+    }
+
+    function getIsLauncherConnected() {
+        return $this->isLauncherConnected;
+    }
+
+    function getIsGameConnected() {
+        return $this->isGameConnected;
+    }
+
+    function getIsNavConnected() {
+        return $this->isNavConnected;
+    }
+
+    function getLastLauncherConnected() {
+        return $this->lastLauncherConnected;
+    }
+
+    function getLastGameConnected() {
+        return $this->lastGameConnected;
+    }
+
+    function getLastNavConnected() {
+        return $this->lastNavConnected;
+    }
+
+    function getRespect() {
+        return $this->respect;
+    }
+
+    function getControl() {
+        return $this->control;
+    }
+
+    function getBanDateTTL() {
+        return $this->banDateTTL;
+    }
+
+    function getPersonnages() {
+        return $this->Personnages;
+    }
+
+    function getSide() {
+        return $this->Side;
+    }
+
+    function getGrade() {
+        return $this->Grade;
+    }
+
+    function getLastGradeChange() {
+        return $this->lastGradeChange;
+    }
+
+    function setEmailvalidatetoken($emailvalidatetoken) {
+        $this->emailvalidatetoken = $emailvalidatetoken;
+        return $this;
+    }
+
+    function setPreniumLevel($preniumLevel) {
+        $this->preniumLevel = $preniumLevel;
+        return $this;
+    }
+
+    function setPreniumEndDate($preniumEndDate) {
+        $this->preniumEndDate = $preniumEndDate;
+        return $this;
+    }
+
+    function setIsLauncherConnected($isLauncherConnected) {
+        $this->isLauncherConnected = $isLauncherConnected;
+        return $this;
+    }
+
+    function setIsGameConnected($isGameConnected) {
+        $this->isGameConnected = $isGameConnected;
+        return $this;
+    }
+
+    function setIsNavConnected($isNavConnected) {
+        $this->isNavConnected = $isNavConnected;
+        return $this;
+    }
+
+    function setLastLauncherConnected($lastLauncherConnected) {
+        $this->lastLauncherConnected = $lastLauncherConnected;
+        return $this;
+    }
+
+    function setLastGameConnected($lastGameConnected) {
+        $this->lastGameConnected = $lastGameConnected;
+        return $this;
+    }
+
+    function setLastNavConnected($lastNavConnected) {
+        $this->lastNavConnected = $lastNavConnected;
+        return $this;
+    }
+
+    function setRespect($respect) {
+        $this->respect = $respect;
+        return $this;
+    }
+
+    function setControl($control) {
+        $this->control = $control;
+        return $this;
+    }
+
+    function setBanDateTTL($banDateTTL) {
+        $this->banDateTTL = $banDateTTL;
+        return $this;
+    }
+
+    function setPersonnages($Personnages) {
+        $this->Personnages = $Personnages;
+        return $this;
+    }
+
+    function setSide($Side) {
+        $this->Side = $Side;
+        return $this;
+    }
+
+    function setGrade($Grade) {
+        $this->Grade = $Grade;
+        return $this;
+    }
+
+    function setLastGradeChange($lastGradeChange) {
+        $this->lastGradeChange = $lastGradeChange;
         return $this;
     }
 

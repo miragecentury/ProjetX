@@ -12,6 +12,19 @@
  * file.
  */
 return array(
+    'mail' => array(
+        'transport' => array(
+            'options' => array(
+                'host' => 'smtp.gmail.com',
+                'connection_class' => 'plain',
+                'connection_config' => array(
+                    'username' => 'sender@nordri.fr',
+                    'password' => '',
+                    'ssl' => 'tls'
+                ),
+            ),
+        ),
+    ),
     'doctrine' => array(
         'connection' => array(
             'orm_default' => array(
@@ -21,7 +34,7 @@ return array(
                     'port' => '3306',
                     'user' => 'root',
                     'username' => 'root',
-                    'password' => 'degrasse03',
+                    'password' => '',
                     'dbname' => 'dev_a3',
                 ),
             ),

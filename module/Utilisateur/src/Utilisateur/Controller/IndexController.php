@@ -18,7 +18,8 @@ class IndexController extends AbstractActionController {
 
     public function firstconnectAction() {
         $em = $this->getServiceLocator()->get("Doctrine\ORM\EntityManager");
-        $User = $this->getCurrentUser();
+        $userMapper = $this->getServiceLocator()->get("A3\Common\Mapper\User");
+        $User = $userMapper->findOneByEmail($this->getCurrentUser()->getEmail());
         if ($User->getFirstconnect()) {
             $User->setFirstconnect(false);
             $em->persist($User);

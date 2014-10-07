@@ -2,8 +2,10 @@
 
 namespace Utilisateur\Controller;
 
+use BPC\Mail\Sender;
 use Utilisateur\Form\InscriptionForm;
 use Utilisateur\Form\LoginForm;
+use Utilisateur\Form\LostpasswordForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -23,7 +25,7 @@ class AuthentificationController extends AbstractActionController {
                 if ($this->identity() != null) {
                     $User = $this->identity();
                     if ($User->getEmailvalidate()) {
-                        if ($User->getFirstconnect()) {
+                        if (!$User->getFirstconnect()) {
                             return $this->redirect()->toRoute("home_connected");
                         } else {
                             return $this->redirect()->toRoute("home_connected", array("controller" => "index", "action" => "firstconnect"));
@@ -76,8 +78,14 @@ class AuthentificationController extends AbstractActionController {
                         //Vérification du mot de passe et de control
                         if ($inscriptionForm->get("passwd0")->getValue() == $inscriptionForm->get("passwd1")->getValue()) {
                             $UserService = $this->getServiceLocator()->get("A3\Common\Service\User");
-                            if ($UserService->createUser($inscriptionForm)) {
-                                return $this->endinscriptionView();
+                            if (is_a(($User = $UserService->createUser($inscriptionForm)), "A3\Common\Entity\User")) {
+                                $emailvalidattion = new \Utilisateur\Mail\ValidationMail($User);
+                                $emailvalidattion->setServiceLocator($this->getServiceLocator());
+                                if ($emailvalidattion->sendme()) {
+                                    return $this->endinscriptionView();
+                                } else {
+                                    return $this->inscriptionView($inscriptionForm, "Problème lors de l'envoi de l'email. Veuillez contacter un administrateur.");
+                                }
                             } else {
                                 return $this->inscriptionView($inscriptionForm, "Problème lors de la creation du compte. Veuillez contacter un administrateur.");
                             }

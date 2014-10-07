@@ -18,23 +18,19 @@ class AbstractActionController extends ZController\AbstractActionController {
     const activeFullLayout = false;
 
     private $User = null;
+    private $alreadyUpdate = false;
 
     /**
      * 
      * @return User
      */
     public function getCurrentUser() {
-        return $this->User;
-    }
-
-    public function refreshUserData() {
-        $auth = $this->getServiceLocator()->get("Zend\Authentication\AuthenticationService");
-        if (!$auth->hasIdentity()) {
-            return $this->redirect()->toRoute("home_login");
-        } else {
-            $em = $this->getServiceLocator()->get("Doctrine\ORM\EntityManager");
-            //$em->refresh($this->User);
+        if (!$this->alreadyUpdate) {
+            $userMapper = $this->getServiceLocator()->get("A3\Common\Mapper\User");
+            $User = $userMapper->findOneByEmail($this->User->getEmail());
+            $this->User = $User;
         }
+        return $this->User;
     }
 
     public function onDispatch(MvcEvent $e) {
@@ -44,8 +40,10 @@ class AbstractActionController extends ZController\AbstractActionController {
                 return $this->redirect()->toRoute("home_login");
             } else {
                 $this->User = $auth->getIdentity();
-                $this->refreshUserData();
-
+                var_dump($this->User);
+                if ($this->User == null) {
+                    return $this->redirect()->toRoute("home_login");
+                }
                 if (static::needAuthorize && !(
                         $this->getCurrentUser()->getIsAdmin() ||
                         $this->getCurrentUser()->getIsModo() ||

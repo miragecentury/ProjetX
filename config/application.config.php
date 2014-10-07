@@ -1,5 +1,8 @@
 <?php
 
+use Zend\Mail\Transport\Smtp;
+use Zend\Mail\Transport\SmtpOptions;
+
 return array(
     // This should be an array of module namespaces used in the application.
     'modules' => array(
@@ -61,6 +64,12 @@ return array(
         'factories' => array(
             "Zend\Session\SessionManager" => "BPC\Session\SessionManagerFactory",
             "Zend\Authentication\AuthenticationService" => "BPC\Authentication\AuthenticationServiceFactory",
+            'Zend\Mail\Transport' => function ($serviceManager) {
+                $config = $serviceManager->get('Config');
+                $transport = new Smtp();
+                $transport->setOptions(new SmtpOptions($config['mail']['transport']['options']));
+                return $transport;
+            },
         ),
         'invokables' => array(
             //--Mapper:
