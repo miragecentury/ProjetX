@@ -6,10 +6,8 @@ use A3\Common\Entity\User;
 use DateTime;
 use Exception;
 use Utilisateur\Form\InscriptionForm;
-use Zend\Mail\Message;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorAwareTrait;
-use Zend\View\Model\ViewModel;
 
 class UserService implements ServiceLocatorAwareInterface {
 
@@ -39,11 +37,11 @@ class UserService implements ServiceLocatorAwareInterface {
     }
 
     private function generateSalt($nb) {
-        return mcrypt_create_iv($nb, MCRYPT_DEV_URANDOM);
+        return \mcrypt_create_iv($nb, MCRYPT_DEV_URANDOM);
     }
 
     private function generateToken() {
-        return md5(uniqid(rand(), true));
+        return \md5(\uniqid(\rand(), true));
     }
 
 }
