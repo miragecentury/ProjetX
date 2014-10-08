@@ -23,7 +23,8 @@ class AuthentificationController extends AbstractActionController {
                 $auth->setAdapter($authentificationAdapter);
                 $auth->authenticate();
                 if ($this->identity() != null) {
-                    $User = $this->identity();
+                    $userMapper = $this->getServiceLocator()->get("A3\Common\Mapper\User");
+                    $User = $userMapper->findOneByEmail($this->identity()->getEmail());
                     if ($User->getEmailvalidate()) {
                         if (!$User->getFirstconnect()) {
                             return $this->redirect()->toRoute("home_connected");
@@ -132,6 +133,27 @@ class AuthentificationController extends AbstractActionController {
         return $viewModel;
     }
 
+    public function activateAction() {
+        $token = $this->params("token", null);
+        if ($token != null) {
+            $userService = $this->getServiceLocator()->get("A3\Common\Service\User");
+            if (($res = $userService->activateUserEmail($token)) == null) {
+                
+            } else {
+                if ($res) {
+                    
+                } else {
+                    
+                }
+            }
+        } else {
+            return $this->redirect()->toRoute("home_login");
+        }
+
+        $this->layout("layout/layout_login");
+        return new ViewModel();
+    }
+
     public function passwordresetAction() {
         
     }
@@ -146,6 +168,11 @@ class AuthentificationController extends AbstractActionController {
     }
 
     public function condutilAction() {
+        $this->layout("layout/layout_login");
+        return new ViewModel();
+    }
+
+    public function noauthAction() {
         $this->layout("layout/layout_login");
         return new ViewModel();
     }

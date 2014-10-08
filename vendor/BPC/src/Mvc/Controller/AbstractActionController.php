@@ -25,12 +25,9 @@ class AbstractActionController extends ZController\AbstractActionController {
      * @return User
      */
     public function getCurrentUser() {
-        if (!$this->alreadyUpdate) {
-            $userMapper = $this->getServiceLocator()->get("A3\Common\Mapper\User");
-            $User = $userMapper->findOneByEmail($this->User->getEmail());
-            $this->User = $User;
-        }
-        return $this->User;
+        $userMapper = $this->getServiceLocator()->get("A3\Common\Mapper\User");
+        $User = $userMapper->findOneByEmail($this->User->getEmail());
+        return $User;
     }
 
     public function onDispatch(MvcEvent $e) {
@@ -40,10 +37,7 @@ class AbstractActionController extends ZController\AbstractActionController {
                 return $this->redirect()->toRoute("home_login");
             } else {
                 $this->User = $auth->getIdentity();
-                var_dump($this->User);
-                if ($this->User == null) {
-                    return $this->redirect()->toRoute("home_login");
-                }
+                $this->getCurrentUser();
                 if (static::needAuthorize && !(
                         $this->getCurrentUser()->getIsAdmin() ||
                         $this->getCurrentUser()->getIsModo() ||
@@ -52,7 +46,7 @@ class AbstractActionController extends ZController\AbstractActionController {
                         $this->getCurrentUser()->getIsAuthorizeConnect()
                         )) {
                     $auth->clearIdentity();
-                    return $this->redirect()->toRoute("home_login");
+                    return $this->redirect()->toRoute("home_noauth");
                 }
 
                 if (static::needAuthorizeDev && !(
@@ -63,31 +57,31 @@ class AbstractActionController extends ZController\AbstractActionController {
                         )
                 ) {
                     $auth->clearIdentity();
-                    return $this->redirect()->toRoute("home_login");
+                    return $this->redirect()->toRoute("home_noauth");
                 }
 
                 if (static::needAuthAdmin && !$this->getCurrentUser()->getIsAdmin()) {
                     $auth->clearIdentity();
-                    return $this->redirect()->toRoute("home_login");
+                    return $this->redirect()->toRoute("home_noauth");
                 }
                 if (static::needAuthModo && !($this->getCurrentUser()->getIsAdmin() || $this->getCurrentUser()->getIsModo())) {
                     $auth->clearIdentity();
-                    return $this->redirect()->toRoute("home_login");
+                    return $this->redirect()->toRoute("home_noauth");
                 }
                 if (static::needAuthTech && !($this->getCurrentUser()->getIsAdmin() || $this->getCurrentUser()->getIsTech())) {
                     $auth->clearIdentity();
-                    return $this->redirect()->toRoute("home_login");
+                    return $this->redirect()->toRoute("home_noauth");
                 }
             }
             $return = parent::onDispatch($e);
             if (static::activeFullLayout) {
-                $this->customFullLayout($auth->getIdentity());
+                $this->customFullLayout();
             }
             return $return;
         }
     }
 
-    function customFullLayout($identity) {
+    function customFullLayout() {
         $this->layout("layout/layout_gamehub");
         $layout_part_user = new ViewModel(array("identity" => $this->getCurrentUser()));
         $layout_part_user->setTemplate("layout/layout_gamehub_part_user");

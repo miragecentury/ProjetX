@@ -23,6 +23,29 @@ return array(
                     ),
                 ),
             ),
+            'home_noauth' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/noauth',
+                    'defaults' => array(
+                        'controller' => 'Utilisateur\Controller\Authentification',
+                        'action' => 'noauth',
+                    ),
+                ),
+            ),
+            'home_activate' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/activate[/:token]',
+                    'constraints' => array(
+                        'token' => '[0-9a-zA-Z]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Utilisateur\Controller\Authentification',
+                        'action' => 'activate',
+                    ),
+                ),
+            ),
             'home_condutil' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(

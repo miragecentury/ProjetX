@@ -44,4 +44,25 @@ class UserService implements ServiceLocatorAwareInterface {
         return \md5(\uniqid(\rand(), true));
     }
 
+    /**
+     * 
+     * @param string $token
+     */
+    public function activateUserEmail($token) {
+        $em = $this->getServiceLocator()->get("Doctrine\ORM\EntityManager");
+        $userMapper = $this->getServiceLocator()->get("A3\Common\Mapper\User");
+        $User = $userMapper->findOneByToken($token);
+        if (is_a($User, "A3\Common\Entity\User")) {
+            if (!$User->getEmailvalidate()) {
+                $User->setEmailvalidatetoken(null);
+                $User->setEmailvalidate(true);
+                $em->persist($User);
+                $em->flush($User);
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
