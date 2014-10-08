@@ -2,10 +2,16 @@
 
 namespace BPC\Mail;
 
+use Exception;
 use Zend\Mail\Message;
 use Zend\Mail\Transport\Smtp;
+use Zend\Mime\Message as MimeMessage;
+use Zend\Mime\Part as MimePart;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorAwareTrait;
+use Zend\View\Model\ViewModel;
+use Zend\View\Renderer\PhpRenderer;
+use Zend\View\Resolver\TemplateMapResolver;
 
 class DefaultMail implements ServiceLocatorAwareInterface {
 
@@ -24,10 +30,17 @@ class DefaultMail implements ServiceLocatorAwareInterface {
         $message->setTo($this->emailTo);
         $message->setFrom($this->emailFrom);
         $message->setSubject($this->subject);
-        $message->setBody($this->render());
+        $message->setEncoding("UTF-8");
+        $html = new MimePart($this->render());
+        $html->type = "text/html";
+        $body = new MimeMessage();
+        $body->setParts(array($html));
+        $message->setBody($body);
         try {
             $transport->send($message);
         } catch (Exception $e) {
+            var_dump($e);
+            exit();
             return false;
         }
         return true;
@@ -42,21 +55,21 @@ class DefaultMail implements ServiceLocatorAwareInterface {
     }
 
     protected function render() {
-        $view = new \Zend\View\Renderer\PhpRenderer();
-        $resolver = new \Zend\View\Resolver\TemplateMapResolver();
+        $view = new PhpRenderer();
+        $resolver = new TemplateMapResolver();
         $resolver->setMap(array(
             'mailLayout' => $this->pathToLayout,
             'mailTemplate' => $this->pathToTemplate
         ));
         $view->setResolver($resolver);
-        
-        $viewModel = new \Zend\View\Model\ViewModel();
+
+        $viewModel = new ViewModel();
         $viewModel->setTemplate('mailTemplate')
                 ->setVariables($this->variables);
 
         $content = $view->render($viewModel);
 
-        $viewLayout = new \Zend\View\Model\ViewModel();
+        $viewLayout = new ViewModel();
         $viewLayout->setTemplate('mailLayout')
                 ->setVariables(array(
                     'content' => $content
