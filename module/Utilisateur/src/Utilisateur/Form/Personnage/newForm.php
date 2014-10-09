@@ -16,8 +16,6 @@ class newForm extends Form {
     public function __construct() {
         parent::__construct("newForm");
         /**/
-        
-        
     }
 
 }

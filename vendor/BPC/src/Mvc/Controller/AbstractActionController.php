@@ -83,20 +83,20 @@ class AbstractActionController extends ZController\AbstractActionController {
 
     function customFullLayout() {
         $this->layout("layout/layout_gamehub");
-        $layout_part_user = new ViewModel(array("identity" => $this->getCurrentUser()));
+        $layout_part_user = new ViewModel(array("User" => $this->getCurrentUser()));
         $layout_part_user->setTemplate("layout/layout_gamehub_part_user");
         $this->layout()->addChild($layout_part_user, "part_user");
 
-        $layout_part_menuleft = new ViewModel(array("identity" => $this->getCurrentUser()));
+        $layout_part_menuleft = new ViewModel(array("User" => $this->getCurrentUser()));
         $layout_part_menuleft->setTemplate("layout/layout_gamehub_part_menuleft");
         $this->layout()->addChild($layout_part_menuleft, "part_menuleft");
 
-        $layout_part_notification = new ViewModel(array("identity" => $this->getCurrentUser()));
+        $layout_part_notification = new ViewModel(array("User" => $this->getCurrentUser()));
         $layout_part_notification->setTemplate("layout/layout_gamehub_part_notification");
         $this->layout()->addChild($layout_part_notification, "part_notification");
 
         if ($this->getCurrentUser()->getIsAdmin() or $this->getCurrentUser()->getIsModo()) {
-            $layout_part_notification_modo = new ViewModel(array("identity" => $this->getCurrentUser()));
+            $layout_part_notification_modo = new ViewModel(array("User" => $this->getCurrentUser()));
             $layout_part_notification_modo->setTemplate("layout/layout_gamehub_part_notification_modo");
             $this->layout()->addChild($layout_part_notification_modo, "part_notification_modo");
         }

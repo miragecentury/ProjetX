@@ -19,6 +19,12 @@ class Airport {
     /** @ORM\Column(type="string") */
     protected $label;
 
+    /** @ORM\Column(type="float") */
+    protected $x;
+
+    /** @ORM\Column(type="float") */
+    protected $y;
+
     /**
      * @ORM\ManyToOne(targetEntity="A3\Region\Entity\Island", inversedBy="Airports")
      */

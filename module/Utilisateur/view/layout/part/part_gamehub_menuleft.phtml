@@ -26,12 +26,24 @@
             <span class="title">Personnages</span>
         </a>
     </li>
-    <li>
-        <a href="javascript:;
+    <?php
+    $active = "";
+    if ($this->ControllerName() == "Utilisateur\Controller\Region" || $this->ControllerName() == "Administrateur\Controller\Region") {
+        $active = "active";
+    }
+    if ($this->User->getIsAdmin()) {
+        $url = $this->url("home_admin", array("controller" => "region"));
+    } else {
+        $url = $this->url("home_connected", array("controller" => "region"));
+    }
+    ?>
+    <li class="<?php echo $active ?>">
+        <a href="<?php echo $url ?>
            ">
             <i class="icon-map"></i>
-            <span class="title">Pays</span>
+            <span class="title">Regions</span>
         </a>
     </li>
+
 </ul>
 <!-- END SIDEBAR MENU -->

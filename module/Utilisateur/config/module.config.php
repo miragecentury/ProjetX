@@ -81,13 +81,32 @@ return array(
                 'options' => array(
                     'route' => '/gamehub[/:controller[/:action]]',
                     'constraints' => array(
-                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'controller' => '(?=[a-zA-Z][a-zA-Z0-9_-]*)(?=^(?!admin))(?=^(?!modo))',
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(
                         '__NAMESPACE__' => 'Utilisateur\Controller',
                         'controller' => 'index',
                         'action' => 'index'
+                    ),
+                ),
+                'may_terminate' => true,
+                "child_routes" => array(
+                    "home_connected_region_detail" => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/:idregion]',
+                            'constraints' => array(
+                                'controller' => 'region',
+                                'action' => 'detail',
+                                'idregion' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'Utilisateur\Controller',
+                                'controller' => 'region',
+                                'action' => 'detail'
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -110,6 +129,8 @@ return array(
             'Utilisateur\Controller\Personnage' => 'Utilisateur\Controller\PersonnageController',
             'Utilisateur\Controller\User' => 'Utilisateur\Controller\UserController',
             'Utilisateur\Controller\Notification' => 'Utilisateur\Controller\NotificationController',
+            'Utilisateur\Controller\Region' => 'Utilisateur\Controller\RegionController',
+        /**/
         ),
     ),
     'view_manager' => array(
