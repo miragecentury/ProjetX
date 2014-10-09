@@ -6,10 +6,8 @@ return array(
             'home_admin' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/gamehub/admin[/:controller[/:action]]',
+                    'route' => '/gamehub/admin',
                     'constraints' => array(
-                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(
                         '__NAMESPACE__' => 'Administrateur\Controller',
@@ -19,6 +17,22 @@ return array(
                 ),
                 'may_terminate' => true,
                 "child_routes" => array(
+                    "common" => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/:controller[/:action]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z0-9]*',
+                                'action' => '[a-zA-Z0-9]*',
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'Administrateur\Controller',
+                                'controller' => 'index',
+                                'action' => 'index'
+                            ),
+                        ),
+                        'may_terminate' => true,
+                    ),
                     "home_connected_region_detail" => array(
                         'type' => 'Segment',
                         'options' => array(

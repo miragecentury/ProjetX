@@ -79,10 +79,8 @@ return array(
             'home_connected' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/gamehub[/:controller[/:action]]',
+                    'route' => '/gamehub',
                     'constraints' => array(
-                        'controller' => '(?=[a-zA-Z][a-zA-Z0-9_-]*)(?=^(?!admin))(?=^(?!modo))',
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(
                         '__NAMESPACE__' => 'Utilisateur\Controller',
@@ -92,10 +90,25 @@ return array(
                 ),
                 'may_terminate' => true,
                 "child_routes" => array(
+                    "common" => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/:controller[/:action]]',
+                            'constraints' => array(
+                                'controller' => '(?!admin)(?!modo)([a-zA-Z0-9]*)',
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'Utilisateur\Controller',
+                                'controller' => 'index',
+                                'action' => 'index'
+                            ),
+                        ),
+                        'may_terminate' => true,
+                    ),
                     "home_connected_region_detail" => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '[/:idregion]',
+                            'route' => '/region/detail[/:idregion]',
                             'constraints' => array(
                                 'controller' => 'region',
                                 'action' => 'detail',
@@ -107,6 +120,7 @@ return array(
                                 'action' => 'detail'
                             ),
                         ),
+                        'may_terminate' => true,
                     ),
                 ),
             ),

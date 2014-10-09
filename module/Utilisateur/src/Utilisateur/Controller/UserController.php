@@ -17,7 +17,6 @@ class UserController extends AbstractActionController {
     }
 
     public function profilAction() {
-        $this->refreshUserData();
         $User = $this->getCurrentUser();
         return new ViewModel(array("User" => $User));
     }

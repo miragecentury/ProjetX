@@ -17,7 +17,7 @@ class PersonnageController extends AbstractActionController {
         $personnageService = $this->getServiceLocator()->get("A3\Common\Service\Personnage");
         $Personnage = $personnageService->getActivePersonnage($this->getCurrentUser());
         if (!is_a($Personnage, "A3\Common\Entity\Personnage")) {
-            return $this->redirect()->toRoute("home_connected", array("controller" => "personnage", "action" => "new"));
+            return $this->redirect()->toRoute("home_connected/common", array("controller" => "personnage", "action" => "new"));
         }
         return new ViewModel();
     }

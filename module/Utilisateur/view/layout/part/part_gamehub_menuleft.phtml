@@ -20,7 +20,7 @@
     }
     ?>
     <li class="<?php echo $active; ?>">
-        <a href="<?php echo $this->url("home_connected", array("controller" => "personnage")) ?>
+        <a href="<?php echo $this->url("home_connected/common", array("controller" => "personnage")) ?>
            ">
             <i class="icon-user"></i>
             <span class="title">Personnages</span>
@@ -32,9 +32,9 @@
         $active = "active";
     }
     if ($this->User->getIsAdmin()) {
-        $url = $this->url("home_admin", array("controller" => "region"));
+        $url = $this->url("home_admin/common", array("controller" => "region", "action" => "index"));
     } else {
-        $url = $this->url("home_connected", array("controller" => "region"));
+        $url = $this->url("home_connected/common", array("controller" => "region"));
     }
     ?>
     <li class="<?php echo $active ?>">

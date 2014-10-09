@@ -14,7 +14,7 @@ class RegionController extends AbstractActionController {
     const activeFullLayout = true;
 
     public function indexAction() {
-        return $this->redirect()->toRoute("home_admin", array("controller" => "region", "action" => "list"));
+        return $this->redirect()->toRoute("home_admin/common", array("controller" => "region", "action" => "list"));
     }
 
     public function listAction() {
