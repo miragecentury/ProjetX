@@ -65,6 +65,7 @@ return array(
         'invokables' => array(
             'Administrateur\Controller\Index' => 'Administrateur\Controller\IndexController',
             'Administrateur\Controller\Region' => 'Administrateur\Controller\RegionController',
+            'Administrateur\Controller\Side' => 'Administrateur\Controller\SideController',
         ),
     ),
     'doctrine' => array(

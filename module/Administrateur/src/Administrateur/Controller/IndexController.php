@@ -8,6 +8,7 @@ class IndexController extends AbstractActionController {
 
     const needAuth = true;
     const needAuthAdmin = true;
+    const activeFullLayout = true;
 
     public function indexAction() {
         

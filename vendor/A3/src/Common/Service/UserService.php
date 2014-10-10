@@ -58,8 +58,10 @@ class UserService implements ServiceLocatorAwareInterface {
                 $User->setEmailvalidate(true);
                 $em->persist($User);
                 $em->flush($User);
+                return true;
+            } else {
+                return null;
             }
-            return true;
         } else {
             return false;
         }

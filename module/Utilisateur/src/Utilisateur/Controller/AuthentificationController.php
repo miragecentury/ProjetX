@@ -138,12 +138,12 @@ class AuthentificationController extends AbstractActionController {
         if ($token != null) {
             $userService = $this->getServiceLocator()->get("A3\Common\Service\User");
             if (($res = $userService->activateUserEmail($token)) == null) {
-                
+                return new ViewModel(array("error" => "Votre Compte est déjà validé."));
             } else {
                 if ($res) {
-                    
+                    return new ViewModel(array("success" => "Votre Compte est validé."));
                 } else {
-                    
+                    return new ViewModel(array("error" => "Impossible d'activé votre compte, contacter un administrateur sur le teamspeak."));
                 }
             }
         } else {

@@ -44,6 +44,21 @@
             <span class="title">Regions</span>
         </a>
     </li>
-
+    <?php if ($this->User->getIsAdmin()): ?>
+        <?php
+        $active = "";
+        if ($this->ControllerName() == "Utilisateur\Controller\Side" || $this->ControllerName() == "Administrateur\Controller\Side") {
+            $active = "active";
+        }
+        $url = $this->url("home_admin/common", array("controller" => "side", "action" => "index"));
+        ?>
+        <li class="<?php echo $active ?>">
+            <a href="<?php echo $url ?>
+               ">
+                <i class="icon-users"></i>
+                <span class="title">Sides</span>
+            </a>
+        </li>
+    <?php endif; ?>
 </ul>
 <!-- END SIDEBAR MENU -->

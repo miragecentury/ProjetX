@@ -1,6 +1,6 @@
 <!-- BEGIN LOGO -->
 <div class="logo">
-    <a class='btn btn-large btn-primary' href='<?php echo $this->url("home_login"); ?>'>Retour</a>
+    <a class='btn btn-large btn-primary' href='<?php echo $this->url("home_login"); ?>'>Retour Login</a>
 </div>
 <!-- END LOGO -->
 <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
@@ -9,7 +9,24 @@
 <!-- END SIDEBAR TOGGLER BUTTON -->
 <!-- BEGIN LOGIN -->
 <div class="content">
-    Activation
+    <?php if (isset($this->error)): ?>
+        <div class="alert alert-error">
+            <strong>Erreur :</strong><br/>
+            <?php echo $this->error ?>
+        </div>
+    <?php endif; ?>
+    <?php if (isset($this->warn)): ?>
+        <div class="alert alert-warning">
+            <strong>Attention :</strong><br/>
+            <?php echo $this->warn ?>
+        </div>
+    <?php endif; ?>
+    <?php if (isset($this->success)): ?>
+        <div class="alert alert-success">
+            <strong>Info :</strong><br/>
+            <?php echo $this->success ?>
+        </div>
+    <?php endif; ?>
 </div>
 <!-- END LOGIN -->
 <!-- BEGIN COPYRIGHT -->
