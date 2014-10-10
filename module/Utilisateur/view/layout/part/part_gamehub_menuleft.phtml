@@ -58,6 +58,16 @@
                 <i class="icon-users"></i>
                 <span class="title">Sides</span>
             </a>
+            <ul class="sub-menu">
+                <?php foreach ($this->Sides as $Side): ?>
+                    <li>
+                        <a href="<?php echo $this->url("home_admin/home_admin_side_detail", array("idside" => $Side->getId())) ?>">
+                            <i class="icon-users"></i>
+                            <?php echo $Side->getLabel() ?></a>
+                    </li>
+                <?php endforeach;
+                ?>
+            </ul>
         </li>
     <?php endif; ?>
 </ul>

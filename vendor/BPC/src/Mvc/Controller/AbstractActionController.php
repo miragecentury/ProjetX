@@ -82,12 +82,15 @@ class AbstractActionController extends ZController\AbstractActionController {
     }
 
     function customFullLayout() {
+        $sideMapper = $this->getServiceLocator()->get("A3/Common/Mapper/Side");
+        $Sides = $sideMapper->findAll();
+
         $this->layout("layout/layout_gamehub");
         $layout_part_user = new ViewModel(array("User" => $this->getCurrentUser()));
         $layout_part_user->setTemplate("layout/layout_gamehub_part_user");
         $this->layout()->addChild($layout_part_user, "part_user");
 
-        $layout_part_menuleft = new ViewModel(array("User" => $this->getCurrentUser()));
+        $layout_part_menuleft = new ViewModel(array("User" => $this->getCurrentUser(), "Sides" => $Sides));
         $layout_part_menuleft->setTemplate("layout/layout_gamehub_part_menuleft");
         $this->layout()->addChild($layout_part_menuleft, "part_menuleft");
 

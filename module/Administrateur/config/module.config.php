@@ -33,10 +33,10 @@ return array(
                         ),
                         'may_terminate' => true,
                     ),
-                    "home_connected_region_detail" => array(
+                    "home_admin_region_detail" => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '[/:idregion]',
+                            'route' => '/region/detail[/:idregion]',
                             'constraints' => array(
                                 'controller' => 'region',
                                 'action' => 'detail',
@@ -45,6 +45,22 @@ return array(
                             'defaults' => array(
                                 '__NAMESPACE__' => 'Administrateur\Controller',
                                 'controller' => 'region',
+                                'action' => 'detail'
+                            ),
+                        ),
+                    ),
+                    "home_admin_side_detail" => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/side/detail[/:idside]',
+                            'constraints' => array(
+                                'controller' => 'side',
+                                'action' => 'detail',
+                                'idside' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'Administrateur\Controller',
+                                'controller' => 'side',
                                 'action' => 'detail'
                             ),
                         ),

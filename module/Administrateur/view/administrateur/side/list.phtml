@@ -1,4 +1,9 @@
 
+<?php
+
+use A3\Common\Entity\SideOrga;
+use A3\Common\Entity\SideRecruting;
+?>
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
     <div class="page-content" style="min-height:1269px">
@@ -21,9 +26,8 @@
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <i class="fa fa-map-marker"></i>
-                    <a href="<?php echo $this->url("home_admin", array("controller" => "side")) ?>">Side</a>
-                    <i class="fa fa-angle-right"></i>
+                    <i class="fa fa-users"></i>
+                    <a href="<?php echo $this->url("home_admin/common", array("controller" => "side")) ?>">Side</a>
                 </li>
             </ul>
             <div class="page-toolbar">
@@ -52,15 +56,88 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th># </th>
+                                        <th>Label </th>
+                                        <th>Nom Complet </th>
+                                        <th>Etat </th>
+                                        <th>Recrute </th>
+                                        <th>Type de Contrôle</th>
+                                        <th>Administration de la Side</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            X
-                                        </td>
-                                    </tr>
+                                    <?php if (isset($this->Sides) && count($this->Sides) > 0): ?>
+                                        <?php foreach ($Sides as $Side): ?>
+                                            <tr>
+                                                <td><?php echo $Side->getId() ?></td>
+                                                <td><?php echo $Side->getLabel() ?></td>
+                                                <td><?php echo $Side->getLonglabel() ?></td>
+                                                <td>
+                                                    <?php if ($Side->getActive()): ?>
+                                                        <span class="label label-sm label-success">
+                                                            Actif </span>
+                                                    <?php else: ?>
+                                                        <span class="label label-sm label-danger">
+                                                            Inactif </span>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td>
+                                                    <?php if ($Side->getRecruting() == SideRecruting::OUVERT): ?>
+                                                        <span class="label label-success">
+                                                            Ouvert </span>
+                                                    <?php endif; ?>
+                                                    <?php if ($Side->getRecruting() == SideRecruting::FERMER): ?>
+                                                        <span class="label  label-danger">
+                                                            Ferme </span>
+                                                    <?php endif; ?>
+                                                    <?php if ($Side->getRecruting() == SideRecruting::CANDIDATURE): ?>
+                                                        <span class="label  label-info">
+                                                            Candidature </span>
+                                                    <?php endif; ?>
+                                                    <?php if ($Side->getRecruting() == SideRecruting::PRIMARY): ?>
+                                                        <span class="label  label-primary">
+                                                            PRIMARY </span>
+                                                    <?php endif; ?>
+                                                    <?php if ($Side->getRecruting() == SideRecruting::CANDIDATURESPE): ?>
+                                                        <span class="label label-default">
+                                                            Candidature Spéciale </span>
+                                                    <?php endif; ?>
+                                                    <?php if ($Side->getRecruting() == SideRecruting::FERMEADMIN): ?>
+                                                        <span class="label label-danger">
+                                                            Fermer par l'Administration</span>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td>
+                                                    <?php if ($Side->getTypeorganisation() == SideOrga::ADMIN): ?>
+                                                        <span class="label  label-default">
+                                                            Administrateur </span>
+                                                    <?php endif; ?>
+                                                    <?php if ($Side->getTypeorganisation() == SideOrga::VOTE): ?>
+                                                        <span class="label  label-primary">
+                                                            Système Parlementaire </span>
+                                                    <?php endif; ?>
+                                                    <?php if ($Side->getTypeorganisation() == SideOrga::GRADE): ?>
+                                                        <span class="label label-info">
+                                                            Système Militaire </span>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td>
+                                                    <?php if ($Side->getReactiveNeedAuth()): ?>
+                                                        <span class="label label-warning">
+                                                            Administré par Admins </span>
+                                                    <?php else: ?>
+                                                        <span class="label label-success">
+                                                            Administré par le Chef de Side </span>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td>
+                                                    <a href='<?php echo $this->url("home_admin/home_admin_side_detail", array("controller" => "side", "action" => "detail", "idside" => $Side->getId())) ?>' class='btn btn-primary'><i class='fa fa-eye'></i></a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>

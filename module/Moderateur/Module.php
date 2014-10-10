@@ -2,16 +2,29 @@
 
 namespace Moderateur;
 
+use Locale;
 use Traversable;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
-use Zend\Mvc\ModuleRouteListener;
-use Zend\Session\Container;
 use Zend\Mvc\MvcEvent;
+use Zend\Validator\AbstractValidator;
 
 class Module implements ConfigProviderInterface {
 
     public function onBootstrap(MvcEvent $e) {
-        
+        date_default_timezone_set('Europe/Paris');
+
+        $serviceManager = $e->getApplication()->getServiceManager();
+        $translator = $serviceManager->get('translator');
+
+        //$locale = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+        $locale = 'fr_FR';
+        //$locale = 'en_US';
+
+        $translator->setLocale(Locale::acceptFromHttp($locale));
+        $translator->addTranslationFile(
+                'phpArray', __DIR__ . '/../../vendor/zendframework/zendframework/resources/languages/fr/Zend_Validate.php', 'default', 'fr_FR'
+        );
+        AbstractValidator::setDefaultTranslator($translator);
     }
 
     /**

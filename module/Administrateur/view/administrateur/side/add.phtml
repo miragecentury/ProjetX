@@ -21,8 +21,8 @@
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <i class="fa fa-map-marker"></i>
-                    <a href="<?php echo $this->url("home_admin", array("controller" => "side")) ?>">Sides</a>
+                    <i class="fa fa-users"></i>
+                    <a href="<?php echo $this->url("home_admin/common", array("controller" => "side")) ?>">Sides</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
             </ul>
@@ -50,76 +50,80 @@
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
-                        <form action="#" class="form-horizontal">
+                        <form action="<?php echo $this->url("home_admin/common", array("controller" => "side", "action" => "add")) ?>" class="form-horizontal" method="post">
                             <div class="form-body">
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label">Nom</label>
+                                <?php if (isset($this->errormessage)): ?>
+                                    <div class="form-group">
+                                        <div class="alert alert-danger col-md-4 col-md-offset-3">
+                                            <strong>Erreur :</strong>
+                                            <?php echo $this->errormessage ?>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if (isset($this->warnmessage)): ?>
+                                    <div class="form-group">
+                                        <div class="alert alert-warning col-md-4 col-md-offset-3">
+                                            <strong>Erreur :</strong>
+                                            <?php echo $this->warnmessage ?>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                                <?php
+                                if (count($this->addSideForm->get("shortlabel")->getMessages()) > 0) {
+                                    $has = "has-warning";
+                                } else {
+                                    $has = "";
+                                }
+                                ?>
+                                <div class="form-group <?php echo $has ?>">
+                                    <label class="col-md-4 control-label">Label</label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control input-inline input-medium" placeholder="Nom de la Région">
-                                        <span class='help-inline'>Nom Unique</span>
+                                        <input type="text" class="form-control input-inline input-medium" placeholder="Label de la side" name="<?php echo $this->addSideForm->get("shortlabel")->getName() ?>" value="<?php echo $this->addSideForm->get("shortlabel")->getValue() ?>">
+                                        <?php if (count($this->addSideForm->get("shortlabel")) > 0): ?>
+                                            <span class='help-inline'>
+                                                <ul>
+                                                    <?php foreach ($this->addSideForm->get("shortlabel")->getMessages() as $message): ?> 
+                                                        <li>
+                                                            <strong><?php echo $message ?></strong>
+                                                        </li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            </span>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <?php
+                                if (count($this->addSideForm->get("label")->getMessages()) > 0) {
+                                    $has = "has-warning";
+                                } else {
+                                    $has = "";
+                                }
+                                ?>
+                                <div class="form-group <?php echo $has ?>">
+                                    <div class="row">
+                                        <label class="col-md-4 control-label">Nom Complet</label>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control input-inline input-medium" placeholder="Nom Complet de la Side" name="<?php echo $this->addSideForm->get("label")->getName() ?>" value="<?php echo $this->addSideForm->get("label")->getValue() ?>">
+                                            <?php if (count($this->addSideForm->get("label")) > 0): ?>
+                                                <span class='help-inline'>
+                                                    <ul>
+                                                        <?php foreach ($this->addSideForm->get("label")->getMessages() as $message): ?> 
+                                                            <li>
+                                                                <strong><?php echo $message ?></strong>
+                                                            </li>
+                                                        <?php endforeach; ?>
+                                                    </ul>
+                                                </span>
+                                            <?php endif; ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-body">
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label">Port Serveur Arma3</label>
-                                    <div class="col-md-4">
-                                        <input type="text" class="form-control input-inline input-medium" placeholder="Port arma3">
-                                        <span class='help-inline'>Auto-Vérifier par l'application</span>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Armée de Régulation</label>
-                                <div class="col-md-4">
-                                    <select class="form-control input-inline input-medium">
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
-                                        <option>Option 4</option>
-                                        <option>Option 5</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Police Militaire Locale</label>
-                                <div class="col-md-4">
-                                    <select class="form-control input-inline input-medium">
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
-                                        <option>Option 4</option>
-                                        <option>Option 5</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Groupe Insurgé</label>
-                                <div class="col-md-4">
-                                    <select class="form-control input-inline input-medium">
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
-                                        <option>Option 4</option>
-                                        <option>Option 5</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-4 col-md-offset-4">
-                                    <a class="btn btn-success" href="<?php echo $this->url("home_admin/common", array("controller" => "side", "action" => "add")) ?>">
-                                        <i class="fa fa-plus "></i>  Ajouter une Side
-                                    </a>
-                                </div>
-                            </div>
-                            <hr>
                             <div class="form-actions">
                                 <div class="row">
                                     <div class="col-md-offset-5 col-md-2">
                                         <button type="submit" class="btn green">Créer</button>
-                                        <a href='<?php echo $this->url("home_admin/common", array("controller" => "region", "action" => "list")) ?>' class="btn default">Annuler</a>
+                                        <a href='<?php echo $this->url("home_admin/common", array("controller" => "side", "action" => "list")) ?>' class="btn default">Annuler</a>
                                     </div>
                                 </div>
                             </div>

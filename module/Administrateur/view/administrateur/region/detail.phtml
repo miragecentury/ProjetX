@@ -6,11 +6,11 @@
 
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Administration <small>Page d'accueil de l'Administration</small>
+            Regions <small>Ajout d'une Région</small>
         </h3>
         <div class="page-bar">
             <ul class="page-breadcrumb">
-                 <li>
+                <li>
                     <i class="fa fa-home"></i>
                     <a href="<?php echo $this->url("home_connected") ?>">Home</a>
                     <i class="fa fa-angle-right"></i>
@@ -18,16 +18,26 @@
                 <li>
                     <i class="fa fa-fire"></i>
                     <a href="<?php echo $this->url("home_admin") ?>">Admin</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <i class="fa fa-map-marker"></i>
+                    <a href="<?php echo $this->url("home_admin/common", array("controller" => "region")) ?>">Regions</a>
+                    <i class="fa fa-angle-right"></i>
                 </li>
             </ul>
             <div class="page-toolbar">
+                <div class="btn-group pull-right">
+                    <a href="<?php echo $this->url("home_admin/common", array("controller" => "region", "action" => "list")) ?>"  class="btn btn-fit-height btn-danger" data-delay="1000" data-close-others="true">
+                        <i class="fa fa-mail-reply"></i>&nbsp; Retour
+                    </a>
+                </div>
             </div>
         </div>
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
         <div class="row">
             <div class="col-md-12">
-                Page content goes here
             </div>
         </div>
         <!-- END PAGE CONTENT-->

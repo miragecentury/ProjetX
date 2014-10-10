@@ -83,6 +83,8 @@ return array(
             "A3\Common\Service\Side" => "A3\Common\Service\SideService",
             "A3\Common\Service\Personnage" => "A3\Common\Service\PersonnageService",
         ),
+        'aliases' => array(
+        ),
     ),
     'session' => array(
         'remember_me_seconds' => 2419200,
@@ -104,6 +106,16 @@ return array(
         'invokables' => array(
             'ControllerName' => 'BPC\View\Helper\ControllerName',
             'ActionName' => 'BPC\View\Helper\ActionName',
+        ),
+    ),
+    'translator' => array(
+        'translation_file_patterns' => array(
+            array(
+                'type' => 'gettext',
+                'base_dir' => __DIR__ . '/../language',
+                'pattern' => '%s.mo',
+            //'text_domain' => __NAMESPACE__,
+            ),
         ),
     ),
 );

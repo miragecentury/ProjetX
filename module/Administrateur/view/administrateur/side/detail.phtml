@@ -1,0 +1,64 @@
+
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+    <div class="page-content" style="min-height:1269px">
+        <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+        <!-- BEGIN PAGE HEADER-->
+        <h3 class="page-title">
+            Sides <small>Listing des Sides</small>
+        </h3>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>
+                    <a href="<?php echo $this->url("home_connected") ?>">Home</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <i class="fa fa-fire"></i>
+                    <a href="<?php echo $this->url("home_admin") ?>">Admin</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <i class="fa fa-users"></i>
+                    <a href="<?php echo $this->url("home_admin/common", array("controller" => "side")) ?>">Side</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <i class="fa fa-users"></i>
+                    <a href="<?php echo $this->url("home_admin/home_admin_side_detail", array("idside" => $this->Side->getId())) ?>"><?php echo $this->Side->getLabel() ?></a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <div class="btn-group pull-right">
+                    <a href="<?php echo $this->url("home_admin/common", array("controller" => "side", "action" => "add")) ?>" class="btn btn-fit-height btn-success" data-delay="1000" data-close-others="true">
+                        <i class="fa fa-plus-circle"></i>&nbsp; Ajouter
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE HEADER-->
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-md-6">
+                // Information Générale
+                // + Actionneur
+            </div>
+            <div class='col-md-6'>
+                //Listing des Grades
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                // Information sur le déploiement dans les îles
+            </div>
+            <div class='col-md-6'>
+                //Listing des Personnes
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+<!-- END CONTENT -->
