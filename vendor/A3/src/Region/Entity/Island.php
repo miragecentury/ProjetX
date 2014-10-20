@@ -57,7 +57,12 @@ class Island {
     /**
      * @ORM\ManyToOne(targetEntity="\A3\Common\Entity\Side", inversedBy="InsugencySideIslands")
      */
-    protected $InsurgencySide;
+    protected $Insurgency0Side;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\A3\Common\Entity\Side", inversedBy="InsugencySideIslands")
+     */
+    protected $Insurgency1Side;
 
     /**     * */
 
@@ -88,71 +93,166 @@ class Island {
     protected $a3serveurport;
 
     /**     * */
-}
-
-class Island_Map extends BasicEnum {
-
-    const Altis = 0;
-    const Stratis = 1;
-    const Reshmann = 2;
-
-    public static function convertToString($const) {
-        switch ($const) {
-            case self::Altis:
-                return "Altis";
-            case self::Stratis:
-                return "Stratis";
-            case self::Reshmann:
-                return "Reshmann";
-            default:
-                return null;
-                break;
-        }
+    function getId() {
+        return $this->id;
     }
 
-    public static function getInfos($const) {
-        switch ($const) {
-            case self::Altis:
-                return array(
-                    "sizeX" => 0,
-                    "sizeY" => 0,
-                    "safeTolerance" => 0,
-                    "nbAirport" => 5,
-                    "coordAirport" => array(
-                        array(0, 0), //Airport Central
-                        array(0, 0), //Airport du Nord-Ouest
-                        array(0, 0), //Airport du Nord-Est
-                        array(0, 0), //Airport du Sud-Est
-                        array(0, 0), //Airport du Sud-Ouest
-                    ),
-                    "islocalAirport" => array(
-                        false,
-                        true,
-                        true,
-                        true,
-                        true,
-                    ),
-                );
-            case self::Stratis:
-                return array(
-                    "sizeX" => 0,
-                    "sizeY" => 0,
-                    "safeTolerance" => 0,
-                    "nbAirport" => 0,
-                    "coordAirport" => array(),
-                );
-            case self::Reshmann:
-                return array(
-                    "sizeX" => 0,
-                    "sizeY" => 0,
-                    "safeTolerance" => 0,
-                    "nbAirport" => 0,
-                    "coordAirport" => array(),
-                );
-            default:
-                return null;
-                break;
-        }
+    function getLabel() {
+        return $this->label;
+    }
+
+    function getActive() {
+        return $this->active;
+    }
+
+    function getPublic() {
+        return $this->public;
+    }
+
+    function getSizeX() {
+        return $this->sizeX;
+    }
+
+    function getSizeY() {
+        return $this->sizeY;
+    }
+
+    function getSafeTolerance() {
+        return $this->safeTolerance;
+    }
+
+    function getMap() {
+        return $this->map;
+    }
+
+    function getMasterSide() {
+        return $this->MasterSide;
+    }
+
+    function getLocalSide() {
+        return $this->LocalSide;
+    }
+
+    function getInsurgency0Side() {
+        return $this->Insurgency0Side;
+    }
+
+    function getInsurgency1Side() {
+        return $this->Insurgency1Side;
+    }
+
+    function getIsLockDown() {
+        return $this->isLockDown;
+    }
+
+    function getIsLockDownMilitary() {
+        return $this->isLockDownMilitary;
+    }
+
+    function getAirports() {
+        return $this->Airports;
+    }
+
+    function getPersonnages() {
+        return $this->Personnages;
+    }
+
+    function getPathToA3Dir() {
+        return $this->pathToA3Dir;
+    }
+
+    function getA3serveurport() {
+        return $this->a3serveurport;
+    }
+
+    function setId($id) {
+        $this->id = $id;
+        return $this;
+    }
+
+    function setLabel($label) {
+        $this->label = $label;
+        return $this;
+    }
+
+    function setActive($active) {
+        $this->active = $active;
+        return $this;
+    }
+
+    function setPublic($public) {
+        $this->public = $public;
+        return $this;
+    }
+
+    function setSizeX($sizeX) {
+        $this->sizeX = $sizeX;
+        return $this;
+    }
+
+    function setSizeY($sizeY) {
+        $this->sizeY = $sizeY;
+        return $this;
+    }
+
+    function setSafeTolerance($safeTolerance) {
+        $this->safeTolerance = $safeTolerance;
+        return $this;
+    }
+
+    function setMap($map) {
+        $this->map = $map;
+        return $this;
+    }
+
+    function setMasterSide($MasterSide) {
+        $this->MasterSide = $MasterSide;
+        return $this;
+    }
+
+    function setLocalSide($LocalSide) {
+        $this->LocalSide = $LocalSide;
+        return $this;
+    }
+
+    function setInsurgency0Side($Insurgency0Side) {
+        $this->Insurgency0Side = $Insurgency0Side;
+        return $this;
+    }
+
+    function setInsurgency1Side($Insurgency1Side) {
+        $this->Insurgency1Side = $Insurgency1Side;
+        return $this;
+    }
+
+    function setIsLockDown($isLockDown) {
+        $this->isLockDown = $isLockDown;
+        return $this;
+    }
+
+    function setIsLockDownMilitary($isLockDownMilitary) {
+        $this->isLockDownMilitary = $isLockDownMilitary;
+        return $this;
+    }
+
+    function setAirports($Airports) {
+        $this->Airports = $Airports;
+        return $this;
+    }
+
+    function setPersonnages($Personnages) {
+        $this->Personnages = $Personnages;
+        return $this;
+    }
+
+    function setPathToA3Dir($pathToA3Dir) {
+        $this->pathToA3Dir = $pathToA3Dir;
+        return $this;
+    }
+
+    function setA3serveurport($a3serveurport) {
+        $this->a3serveurport = $a3serveurport;
+        return $this;
     }
 
 }

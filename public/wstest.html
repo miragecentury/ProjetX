@@ -1,0 +1,36 @@
+<head>
+    <script src="http://autobahn.s3.amazonaws.com/js/autobahn.js"></script>
+    <script>
+        window.onload = function () {
+
+            // WAMP server
+            var wsuri = "ws://projetx.local:8080";
+
+            ab.connect(wsuri,
+                    // WAMP session was established
+                            function (session) {
+
+                                // subscribe to topic
+                                session.subscribe("projetx.ping",
+                                        // on event publication callback
+                                                function (topic, event) {
+                                                    console.log("got ping response");
+                                                    console.debug(topic);
+                                                    console.debug(event);
+                                                }
+                                        );
+
+                                        // publish event on a topic
+                                        session.publish("projetx.ping", {});
+                                    },
+                                    // WAMP session is gone
+                                            function (code, reason) {
+                                                console.log(reason);
+                                            }
+                                    );
+                                };
+    </script>
+</head>
+<body>
+    WS Test
+</body>

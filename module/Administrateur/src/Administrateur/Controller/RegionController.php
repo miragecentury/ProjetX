@@ -2,7 +2,7 @@
 
 namespace Administrateur\Controller;
 
-use Administrateur\Form\Region\Add;
+use Administrateur\Form\Island\Add;
 use BPC\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -36,19 +36,19 @@ class RegionController extends AbstractActionController {
     }
 
     public function addAction() {
-        $addRegion = new Add();
+        $addIsland = new Add($this->getServiceLocator()->get("A3/Common/Mapper/Side"));
         if ($this->getRequest()->isPOST()) {
-            $addRegion->setData($this->getRequest()->getPOST());
-            if ($addRegion->isValid()) {
-                $regionService = $this->getServiceLocator()->get("A3/Region/Service/Region");
-                $Region = $regionService->addRegion($addRegion);
-                if (is_a($Region, "A3/Region/Entity/region")) {
+            $addIsland->setData($this->getRequest()->getPOST());
+            if ($addIsland->isValid()) {
+                $islandService = $this->getServiceLocator()->get("A3/Region/Service/Island");
+                $Island = $islandService->addIsland($addIsland);
+                if (is_a($Island, "A3/Region/Entity/region")) {
                     return $this->redirect()->toRoute("home_admin/home_admin_side_detail", array("controller" => "region", "action" => "detail", "idregion" => $Region->getId()));
                 } else {
-                    return $this->addView($addRegion, null, "Impossible de créer la Région.");
+                    return $this->addView($addIsland, null, "Impossible de créer la Région.");
                 }
             } else {
-                return $this->addView($addRegion, "Vérifier le format des données.");
+                return $this->addView($addIsland, "Vérifier le format des données.");
             }
         } else {
             return $this->addView();
@@ -57,7 +57,7 @@ class RegionController extends AbstractActionController {
 
     private function addView(Add $form = null, $warnmessage = null, $errormessage = null) {
         if ($form == null) {
-            $form = new Add();
+            $form = new Add($this->getServiceLocator()->get("A3/Common/Mapper/Side"));
         }
         return new ViewModel(array(
             'addSideForm' => $form,

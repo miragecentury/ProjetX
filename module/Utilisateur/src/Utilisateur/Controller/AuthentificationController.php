@@ -2,11 +2,13 @@
 
 namespace Utilisateur\Controller;
 
-use BPC\Mail\Sender;
+use BPC\Wamp\InternalMessage;
 use Utilisateur\Form\InscriptionForm;
 use Utilisateur\Form\LoginForm;
 use Utilisateur\Form\LostpasswordForm;
+use Utilisateur\Mail\ValidationMail;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Stdlib\DateTime;
 use Zend\View\Model\ViewModel;
 
 class AuthentificationController extends AbstractActionController {
@@ -26,6 +28,14 @@ class AuthentificationController extends AbstractActionController {
                     $userMapper = $this->getServiceLocator()->get("A3\Common\Mapper\User");
                     $User = $userMapper->findOneByEmail($this->identity()->getEmail());
                     if ($User->getEmailvalidate()) {
+                        $dateTime = new \DateTime("now");
+                        $message = new InternalMessage("projetx.user.login", array(
+                            "id" => $User->getId(),
+                            "ip" => "127.0.0.1",
+                            "email" => $User->getEmail(),
+                            "datetime" => $dateTime->format(DATE_ATOM)
+                        ));
+                        InternalMessage::send($message);
                         if (!$User->getFirstconnect()) {
                             return $this->redirect()->toRoute("home_connected");
                         } else {
@@ -80,7 +90,7 @@ class AuthentificationController extends AbstractActionController {
                         if ($inscriptionForm->get("passwd0")->getValue() == $inscriptionForm->get("passwd1")->getValue()) {
                             $UserService = $this->getServiceLocator()->get("A3\Common\Service\User");
                             if (is_a(($User = $UserService->createUser($inscriptionForm)), "A3\Common\Entity\User")) {
-                                $emailvalidattion = new \Utilisateur\Mail\ValidationMail($User);
+                                $emailvalidattion = new ValidationMail($User);
                                 $emailvalidattion->setServiceLocator($this->getServiceLocator());
                                 if ($emailvalidattion->sendme()) {
                                     return $this->endinscriptionView();

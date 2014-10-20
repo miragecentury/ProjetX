@@ -50,71 +50,191 @@
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
-                        <form action="#" class="form-horizontal">
+                        <form action="<?php $this->url("home_admin/common", array("controller" => "region", "action" => "add")) ?>" class="form-horizontal" method="post">
                             <div class="form-body">
-                                <div class="form-group">
+                                <?php if (isset($this->errormessage)): ?>
+                                    <div class="form-group">
+                                        <div class="alert alert-danger col-md-4 col-md-offset-3">
+                                            <strong>Erreur :</strong>
+                                            <?php echo $this->errormessage ?>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if (isset($this->warnmessage)): ?>
+                                    <div class="form-group">
+                                        <div class="alert alert-warning col-md-4 col-md-offset-3">
+                                            <strong>Erreur :</strong>
+                                            <?php echo $this->warnmessage ?>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                                <?php
+                                if (count($this->addSideForm->get("nom")->getMessages()) > 0) {
+                                    $has = "has-warning";
+                                } else {
+                                    $has = "";
+                                }
+                                ?>
+                                <div class="form-group <?php echo $has ?>">
                                     <label class="col-md-4 control-label">Nom</label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control input-inline input-medium" placeholder="Nom de la Région">
-                                        <span class='help-inline'>Nom Unique</span>
+                                        <input type="text" class="form-control input-inline input-medium" placeholder="Nom de la Région" name="<?php echo $this->addSideForm->get("nom")->getName() ?>" value="<?php echo $this->addSideForm->get("nom")->getValue() ?>">
+                                        <?php if (count($this->addSideForm->get("nom")) > 0): ?>
+                                            <span class='help-inline'>
+                                                <ul>
+                                                    <?php foreach ($this->addSideForm->get("nom")->getMessages() as $message): ?> 
+                                                        <li>
+                                                            <strong><?php echo $message ?></strong>
+                                                        </li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            </span>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-body">
-                                <div class="form-group">
+                                <?php
+                                if (count($this->addSideForm->get("a3port")->getMessages()) > 0) {
+                                    $has = "has-warning";
+                                } else {
+                                    $has = "";
+                                }
+                                ?>
+                                <div class="form-group <?php echo $has ?>">
                                     <label class="col-md-4 control-label">Port Serveur Arma3</label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control input-inline input-medium" placeholder="Port arma3">
-                                        <span class='help-inline'>Auto-Vérifier par l'application</span>
+                                        <input type="text" class="form-control input-inline input-medium" placeholder="Port arma3" name="<?php echo $this->addSideForm->get("a3port")->getName() ?>" value="<?php echo $this->addSideForm->get("a3port")->getValue() ?>">
+                                        <?php if (count($this->addSideForm->get("a3port")) > 0): ?>
+                                            <span class='help-inline'>
+                                                <ul>
+                                                    <?php foreach ($this->addSideForm->get("a3port")->getMessages() as $message): ?> 
+                                                        <li>
+                                                            <strong><?php echo $message ?></strong>
+                                                        </li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            </span>
+                                        <?php endif; ?>
                                     </div>
 
                                 </div>
-                            </div>
-                            <hr>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Armée de Régulation</label>
-                                <div class="col-md-4">
-                                    <select class="form-control input-inline input-medium">
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
-                                        <option>Option 4</option>
-                                        <option>Option 5</option>
-                                    </select>
+                                <?php
+                                if (count($this->addSideForm->get("map")->getMessages()) > 0) {
+                                    $has = "has-warning";
+                                } else {
+                                    $has = "";
+                                }
+                                ?>
+                                <div class="form-group <?php echo $has ?>">
+                                    <label class="col-md-4 control-label">Map</label>
+                                    <div class="col-md-4">
+                                        <select class="form-control input-inline input-large" name="<?php echo $this->addSideForm->get("map")->getName() ?>" value="<?php echo $this->addSideForm->get("map")->getValue() ?>">
+                                            <?php foreach ($this->addSideForm->get('map')->getValueOptions() as $key => $option): ?>
+                                                <option value="<?php echo $key ?>"
+                                                <?php if ($key == $this->addSideForm->get("map")->getValue()): ?>
+                                                            selected="selected"
+                                                        <?php endif; ?>
+                                                        ><?php echo $option ?></option>
+                                                    <?php endforeach; ?>
+                                        </select>
+                                        <?php if (count($this->addSideForm->get("map")) > 0): ?>
+                                            <span class='help-inline'>
+                                                <ul>
+                                                    <?php foreach ($this->addSideForm->get("map")->getMessages() as $message): ?> 
+                                                        <li>
+                                                            <strong><?php echo $message ?></strong>
+                                                        </li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            </span>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Police Militaire Locale</label>
-                                <div class="col-md-4">
-                                    <select class="form-control input-inline input-medium">
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
-                                        <option>Option 4</option>
-                                        <option>Option 5</option>
-                                    </select>
+                                <hr>
+                                <?php
+                                if (count($this->addSideForm->get("sideRegu")->getMessages()) > 0) {
+                                    $has = "has-warning";
+                                } else {
+                                    $has = "";
+                                }
+                                ?>
+                                <div class="form-group <?php echo $has ?>">
+                                    <label class="col-md-4 control-label">Armée de Régulation</label>
+                                    <div class="col-md-4">
+                                        <select class="form-control input-inline input-large"  name="<?php echo $this->addSideForm->get("sideRegu")->getName() ?>" value="<?php echo $this->addSideForm->get("sideRegu")->getValue() ?>">
+                                            <?php foreach ($this->addSideForm->get('sideRegu')->getValueOptions() as $key => $option): ?>
+                                                <option value="<?php echo $key ?>" <?php if ($key == $this->addSideForm->get("sideRegu")->getValue()): ?>
+                                                            selected="selected"
+                                                        <?php endif; ?>><?php echo $option ?></option>
+                                                    <?php endforeach; ?>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Groupe Insurgé</label>
-                                <div class="col-md-4">
-                                    <select class="form-control input-inline input-medium">
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
-                                        <option>Option 4</option>
-                                        <option>Option 5</option>
-                                    </select>
+                                <?php
+                                if (count($this->addSideForm->get("sidePolice")->getMessages()) > 0) {
+                                    $has = "has-warning";
+                                } else {
+                                    $has = "";
+                                }
+                                ?>
+                                <div class="form-group <?php echo $has ?>">
+                                    <label class="col-md-4 control-label">Police Militaire Locale</label>
+                                    <div class="col-md-4">
+                                        <select class="form-control input-inline input-large"  name="<?php echo $this->addSideForm->get("sidePolice")->getName() ?>" value="<?php echo $this->addSideForm->get("sidePolice")->getValue() ?>">
+                                            <?php foreach ($this->addSideForm->get('sidePolice')->getValueOptions() as $key => $option): ?>
+                                                <option value="<?php echo $key ?>" <?php if ($key == $this->addSideForm->get("sidePolice")->getValue()): ?>
+                                                            selected="selected"
+                                                        <?php endif; ?>><?php echo $option ?></option>
+                                                    <?php endforeach; ?>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-4 col-md-offset-4">
-                                    <a class="btn btn-success" href="<?php echo $this->url("home_admin/common", array("controller" => "side", "action" => "add")) ?>">
-                                        <i class="fa fa-plus "></i>  Ajouter une Side
-                                    </a>
+                                <?php
+                                if (count($this->addSideForm->get("sideInsu0")->getMessages()) > 0) {
+                                    $has = "has-warning";
+                                } else {
+                                    $has = "";
+                                }
+                                ?>
+                                <div class="form-group <?php echo $has ?>">
+                                    <label class="col-md-4 control-label">Groupe Insurgé 0</label>
+                                    <div class="col-md-4">
+                                        <select class="form-control input-inline input-large"  name="<?php echo $this->addSideForm->get("sideInsu0")->getName() ?>" value="<?php echo $this->addSideForm->get("sideInsu0")->getValue() ?>">
+                                            <?php foreach ($this->addSideForm->get('sideInsu0')->getValueOptions() as $key => $option): ?>
+                                                <option value="<?php echo $key ?>" <?php if ($key == $this->addSideForm->get("sideInsu0")->getValue()): ?>
+                                                            selected="selected"
+                                                        <?php endif; ?>><?php echo $option ?></option>
+                                                    <?php endforeach; ?>
+                                        </select>
+                                    </div>
                                 </div>
+                                <?php
+                                if (count($this->addSideForm->get("sideInsu1")->getMessages()) > 0) {
+                                    $has = "has-warning";
+                                } else {
+                                    $has = "";
+                                }
+                                ?>
+                                <div class="form-group <?php echo $has ?>">
+                                    <label class="col-md-4 control-label">Groupe Insurgé 1</label>
+                                    <div class="col-md-4">
+                                        <select class="form-control input-inline input-large"  name="<?php echo $this->addSideForm->get("sideInsu1")->getName() ?>" value="<?php echo $this->addSideForm->get("sideInsu1")->getValue() ?>">
+                                            <?php foreach ($this->addSideForm->get('sideInsu1')->getValueOptions() as $key => $option): ?>
+                                                <option value="<?php echo $key ?>" <?php if ($key == $this->addSideForm->get("sideInsu1")->getValue()): ?>
+                                                            selected="selected"
+                                                        <?php endif; ?>><?php echo $option ?></option>
+                                                    <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4 col-md-offset-4">
+                                        <a class="btn btn-success" href="<?php echo $this->url("home_admin/common", array("controller" => "side", "action" => "add")) ?>">
+                                            <i class="fa fa-plus "></i>  Ajouter une Side
+                                        </a>
+                                    </div>
+                                </div>
+                                <hr>
                             </div>
-                            <hr>
                             <div class="form-actions">
                                 <div class="row">
                                     <div class="col-md-offset-5 col-md-2">

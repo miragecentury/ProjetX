@@ -77,11 +77,15 @@ return array(
             "A3\Common\Mapper\Grade" => "A3\Common\Mapper\GradeMapper",
             "A3\Common\Mapper\Side" => "A3\Common\Mapper\SideMapper",
             "A3\Common\Mapper\Personnage" => "A3\Common\Mapper\PersonnageMapper",
+            //
+            "A3\Region\Mapper\Island" => "A3\Region\Mapper\IslandMapper",
             //--Service:
             "A3\Common\Service\User" => "A3\Common\Service\UserService",
             "A3\Common\Service\Grade" => "A3\Common\Service\GradeService",
             "A3\Common\Service\Side" => "A3\Common\Service\SideService",
             "A3\Common\Service\Personnage" => "A3\Common\Service\PersonnageService",
+            //
+            "A3\Region\Service\Island" => "A3\Region\Service\IslandService",
         ),
         'aliases' => array(
         ),

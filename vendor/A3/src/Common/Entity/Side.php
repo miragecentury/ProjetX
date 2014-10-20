@@ -29,10 +29,10 @@ class Side {
 
     /** @ORM\Column(type="integer") */
     protected $typeorganisation = 0;
-    
+
     /** @ORM\Column(type="boolean") */
     protected $active = false;
-    
+
     /** @ORM\Column(type="integer") */
     protected $reactiveNeedAuth = true;
 
@@ -52,9 +52,14 @@ class Side {
     protected $LocalSideIslands;
 
     /**
-     * @ORM\OneToMany(targetEntity="\A3\Region\Entity\Island",mappedBy="InsurgencySide")
+     * @ORM\OneToMany(targetEntity="\A3\Region\Entity\Island",mappedBy="Insurgency0Side")
      */
-    protected $InsurgencySideIslands;
+    protected $Insurgency0SideIslands;
+
+    /**
+     * @ORM\OneToMany(targetEntity="\A3\Region\Entity\Island",mappedBy="Insurgency1Side")
+     */
+    protected $Insurgency1SideIslands;
 
     /**     * */
 
@@ -128,7 +133,7 @@ class Side {
         $this->reactiveNeedAuth = $reactiveNeedAuth;
         return $this;
     }
-    
+
     function getTypeorganisation() {
         return $this->typeorganisation;
     }
@@ -137,7 +142,5 @@ class Side {
         $this->typeorganisation = $typeorganisation;
         return $this;
     }
-
-
 
 }

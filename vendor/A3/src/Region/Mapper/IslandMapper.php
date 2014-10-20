@@ -37,4 +37,18 @@ class IslandMapper implements ServiceLocatorAwareInterface {
         return $islands;
     }
 
+    public function findOneByA3Serverport($a3port) {
+        $em = $this->getServiceLocator()->get("Doctrine\ORM\EntityManager");
+        $repository = $em->getRepository("A3\Region\Entity\Island");
+        $islands = $repository->findBy(array("a3serveurport" => $a3port));
+        return $islands;
+    }
+
+    public function findOneByLabel($label) {
+        $em = $this->getServiceLocator()->get("Doctrine\ORM\EntityManager");
+        $repository = $em->getRepository("A3\Region\Entity\Island");
+        $islands = $repository->findBy(array("label" => $label));
+        return $islands;
+    }
+
 }
