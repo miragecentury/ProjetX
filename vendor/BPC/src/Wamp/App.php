@@ -20,7 +20,7 @@ class App extends RatchetApp {
         $this->route("/", $this->main);
     }
 
-    public function route($path, ComponentInterface $controller, array $allowedOrigins = array(), $httpHost = null) {
+    public function route($path, ComponentInterface $controller, array $allowedOrigins = array("*"), $httpHost = null) {
         return parent::route($path, $controller, $allowedOrigins, $httpHost);
     }
 
