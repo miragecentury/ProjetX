@@ -68,14 +68,14 @@ class Main extends WampServer {
     }
 
     public function onOpen(ConnectionInterface $conn) {
-        echo "Main : CONNECTION" . PHP_EOL;
-        var_dump($conn);
+        echo "Main : CONNECTION : start" . PHP_EOL;
         //Delegate To All TopicNamespace
         if (!isset($this->Connections[$conn->resourceId])) {
             $this->Connections[$conn->resourceId] = $conn;
         } else {
             throw new Exception("Connection RessourceId already defined", 000);
         }
+        echo "Main : CONNECTION : end" . PHP_EOL;
     }
 
     public function onCall(ConnectionInterface $conn, $id, $topic, array $params) {
