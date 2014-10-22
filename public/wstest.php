@@ -19,7 +19,6 @@ header('Access-Control-Allow-Origin: *');
     <script src="/js/autobahn.js"></script>
     <script>
         window.onload = function () {
-
             // WAMP server
             var wsuri = "ws://projetx.nordri.fr:8080";
             $('#state').empty();
@@ -47,17 +46,18 @@ header('Access-Control-Allow-Origin: *');
                 session.call("ws.projetx.common.user.login", $("#exampleInputEmail1").val(), $("#exampleInputFile").val()).then(function (result) {
                     // do stuff with the result
                     console.debug(result);
-                    if(result.token == null){
+                    if (result.token == null) {
                         $("#stateAuth").text("Non-Authentifié");
                         $("#stateAuth").addClass("label-danger");
                         $("#stateAuth").removeClass("label-success");
                         $("#stateToken").text("Token:  ");
-                    }else{
+                    } else {
                         $("#stateAuth").text("Authentifié");
                         $("#stateAuth").removeClass("label-danger");
                         $("#stateAuth").addClass("label-success");
                         $("#stateToken").text("Token:  " + result.token);
-                    };
+                    }
+                    ;
                 }, function (error) {
                     console.debug(error);
                 });

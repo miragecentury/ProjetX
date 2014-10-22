@@ -17,7 +17,7 @@ class App extends RatchetApp {
     public function __construct($Zendapp, LoopInterface $loop = null, $httpHost = "projetx.nordri.fr", $port = 8080, $address = '0.0.0.0') {
         parent::__construct($httpHost, $port, $address, $loop);
         $this->main = new Main($Zendapp, "ws.projetx");
-        $this->route("/", $this->main, ["*"]);
+        $this->route("/", $this->main, array('*'));
     }
 
 //    public function route($path, ComponentInterface $controller, array $allowedOrigins = array("*", "projetx.local", "nordri.fr", "ip.nordri.fr", "projetx.nordri.fr"), $httpHost = null) {
