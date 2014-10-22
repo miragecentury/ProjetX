@@ -21,7 +21,7 @@ header('Access-Control-Allow-Origin: *');
         window.onload = function () {
 
             // WAMP server
-            var wsuri = "ws://projetx.local:8080";
+            var wsuri = "ws://projetx.nordri.fr:8080";
             $('#state').empty();
             $('#state').text("Déconnecté");
             var addEvent = function (topic, event) {
