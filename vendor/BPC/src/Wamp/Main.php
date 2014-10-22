@@ -9,13 +9,19 @@ use Ratchet\ConnectionInterface;
 class Main extends WampServer {
 
     protected $root;
+    protected $ZendApp;
     protected $TopicNamespaces = array();
     protected $Connections = array();
     protected $AuthenticateConnections = array();
 
-    public function __construct($root) {
+    public function __construct($ZendApp, $root) {
         $this->root = $root;
+        $this->ZendApp = $ZendApp;
         $this->add(new Topic\CommonTopicNamespace($this));
+    }
+
+    public function getServiceLocator() {
+        return $this->ZendApp->getServiceManager();
     }
 
     public function getRootTopic() {

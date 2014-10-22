@@ -7,24 +7,30 @@ use BPC\Wamp\Event as BpcEvent;
 class LoginEvent extends BpcEvent {
 
     const TOPIC = "ws.projetx.common.user.login";
+    const LOGIN_GAMEHUB = 0;
+    const LOGIN_WS = 1;
+    const LOGIN_API = 1;
 
     protected $UserId;
     protected $UserEmail;
     protected $Username;
+    protected $TypeLogin;
     protected $TimeStamp;
 
-    public function __construct($UserId, $UserEmail, $UserUsername, $TimeStamp) {
+    public function __construct($UserId, $UserEmail, $UserUsername, $TimeStamp, $typeLogin) {
         $data = array(
             "User.Id" => $UserId,
             "User.Email" => $UserEmail,
             "Username" => $UserUsername,
             "TimeStamp" => $TimeStamp,
+            "TypeLogin" => $typeLogin,
         );
         parent::__construct($data);
         $this->UserId = $UserId;
         $this->UserEmail = $UserEmail;
         $this->Username = $UserUsername;
         $this->TimeStamp = $TimeStamp;
+        $this->TypeLogin = $typeLogin;
     }
 
     public function getData() {
@@ -33,6 +39,7 @@ class LoginEvent extends BpcEvent {
             "User.Email" => $this->UserEmail,
             "Username" => $this->Username,
             "TimeStamp" => $this->TimeStamp,
+            "TypeLogin" => $this->TypeLogin,
         );
         return parent::getData();
     }
@@ -43,6 +50,7 @@ class LoginEvent extends BpcEvent {
         $this->UserEmail = $this->data["User.Email"];
         $this->Username = $this->data["Username"];
         $this->TimeStamp = $this->data["TimeStamp"];
+        $this->TypeLogin = $this->data["TypeLogin"];
     }
 
     function getUserId() {
@@ -75,6 +83,14 @@ class LoginEvent extends BpcEvent {
 
     function setTimeStamp($TimeStamp) {
         $this->TimeStamp = $TimeStamp;
+    }
+
+    function getTypeLogin() {
+        return $this->TypeLogin;
+    }
+
+    function setTypeLogin($TypeLogin) {
+        $this->TypeLogin = $TypeLogin;
     }
 
     public function sendInternalEvent() {

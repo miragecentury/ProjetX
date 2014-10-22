@@ -29,7 +29,7 @@ class AuthentificationController extends AbstractActionController {
                     $User = $userMapper->findOneByEmail($this->identity()->getEmail());
                     if ($User->getEmailvalidate()) {
                         $dateTime = new DateTime("now");
-                        $loginEvent = new LoginEvent($User->getId(), $User->getEmail(), $User->getUsername(), time());
+                        $loginEvent = new LoginEvent($User->getId(), $User->getEmail(), $User->getUsername(), time(), LoginEvent::LOGIN_GAMEHUB);
                         $loginEvent->sendInternalEvent();
                         if (!$User->getFirstconnect()) {
                             return $this->redirect()->toRoute("home_connected");

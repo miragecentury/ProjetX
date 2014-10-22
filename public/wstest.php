@@ -21,7 +21,7 @@ header('Access-Control-Allow-Origin: *');
         window.onload = function () {
 
             // WAMP server
-            var wsuri = "ws://projetx.nordri.fr:8080";
+            var wsuri = "ws://projetx.local:8080";
             $('#state').empty();
             $('#state').text("Déconnecté");
             var addEvent = function (topic, event) {
@@ -31,7 +31,7 @@ header('Access-Control-Allow-Origin: *');
                 ar = JSON.parse(event);
                 // create a new javascript Date object based on the timestamp
                 // multiplied by 1000 so that the argument is in milliseconds, not seconds
-                var date = new Date(ar.data.TimeStamp*1000);
+                var date = new Date(ar.data.TimeStamp * 1000);
                 // hours part from the timestamp
                 var hours = date.getHours();
                 // minutes part from the timestamp
@@ -40,12 +40,33 @@ header('Access-Control-Allow-Origin: *');
                 var seconds = "0" + date.getSeconds();
 
                 // will display time in 10:30:23 format
-                var formattedTime = hours + ':' + minutes.substr(minutes.length-2) + ':' + seconds.substr(seconds.length-2);
-                $("#eventtable").append("<tr><td>"+formattedTime+"</td><td>"+topic+"</td><td>"+JSON.stringify(ar.data)+"</td></tr>");
+                var formattedTime = hours + ':' + minutes.substr(minutes.length - 2) + ':' + seconds.substr(seconds.length - 2);
+                $("#eventtable").append("<tr><td>" + formattedTime + "</td><td>" + topic + "</td><td>" + JSON.stringify(ar.data) + "</td></tr>");
             };
+            testauth = function (session) {
+                session.call("ws.projetx.common.user.login", $("#exampleInputEmail1").val(), $("#exampleInputFile").val()).then(function (result) {
+                    // do stuff with the result
+                    console.debug(result);
+                    if(result.token == null){
+                        $("#stateAuth").text("Non-Authentifié");
+                        $("#stateAuth").addClass("label-danger");
+                        $("#stateAuth").removeClass("label-success");
+                        $("#stateToken").text("Token:  ");
+                    }else{
+                        $("#stateAuth").text("Authentifié");
+                        $("#stateAuth").removeClass("label-danger");
+                        $("#stateAuth").addClass("label-success");
+                        $("#stateToken").text("Token:  " + result.token);
+                    };
+                }, function (error) {
+                    console.debug(error);
+                });
+            };
+            mysession = null;
             ab.connect(wsuri,
                     // WAMP session was established
                             function (session) {
+                                mysession = session;
                                 console.log("Connected");
                                 $('#state').empty();
                                 $('#state').text("Connecté");
@@ -77,6 +98,7 @@ header('Access-Control-Allow-Origin: *');
                                                     }
                                             );
                                         };
+
     </script>
 </head>
 <body style="padding-top: 50px;">
@@ -106,8 +128,26 @@ header('Access-Control-Allow-Origin: *');
                     <thead>
                     <th>WAMP</th>
                     <th><div id="state" class="label label-danger" style="display: block;">Disconnect</div></th>
+                    <th><div id="stateAuth" class="label label-danger" style="display: block;">Non-Auhtentifié</div></th>
+                    <th><div id="stateToken" class="label label-info" style="display: block;">Token:</div></th>
                     </thead>
                 </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" style="text-align: center;">
+                <form class="form-inline" style="border: #000 double medium;">
+                    <span>Auth:</span>
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="password" id="exampleInputFile" placeholder="Password">
+                    </div>
+                    <div class="form-group" style="text-align: center;">
+                        <a onclick="testauth(mysession);" class="btn btn-default">Submit</a>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="row">

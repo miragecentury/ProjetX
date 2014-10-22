@@ -60,6 +60,15 @@ class User {
     /** @ORM\Column(type="string") */
     protected $hash;
 
+    /** @ORM\Column(type="string") */
+    protected $tokenApiHttp;
+
+    /** @ORM\Column(type="string") */
+    protected $tokenApiWS;
+
+    /** @ORM\Column(type="string") */
+    protected $tokenApiLauncher;
+
     /**     * */
 
     /** @ORM\Column(type="boolean") */
@@ -421,6 +430,33 @@ class User {
 
     function setLastGradeChange($lastGradeChange) {
         $this->lastGradeChange = $lastGradeChange;
+        return $this;
+    }
+
+    function getTokenApiHttp() {
+        return $this->tokenApiHttp;
+    }
+
+    function getTokenApiWS() {
+        return $this->tokenApiWS;
+    }
+
+    function getTokenApiLauncher() {
+        return $this->tokenApiLauncher;
+    }
+
+    function setTokenApiHttp($tokenApiHttp) {
+        $this->tokenApiHttp = $tokenApiHttp;
+        return $this;
+    }
+
+    function setTokenApiWS($tokenApiWS) {
+        $this->tokenApiWS = $tokenApiWS;
+        return $this;
+    }
+
+    function setTokenApiLauncher($tokenApiLauncher) {
+        $this->tokenApiLauncher = $tokenApiLauncher;
         return $this;
     }
 

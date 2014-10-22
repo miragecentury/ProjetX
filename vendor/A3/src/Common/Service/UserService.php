@@ -67,4 +67,29 @@ class UserService implements ServiceLocatorAwareInterface {
         }
     }
 
+    /**
+     * 
+     * @param type $email
+     * @param type $password
+     * @param type $mode
+     * @return type
+     */
+    public function getToken($email, $password, $mode = 0) {
+        $em = $this->getServiceLocator()->get("Doctrine\ORM\EntityManager");
+        $userMapper = $this->getServiceLocator()->get("A3\Common\Mapper\User");
+        $User = $userMapper->findOneByEmail($email);
+        if (is_a($User, "A3\Common\Entity\User")) {
+            if (base64_encode(\mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($User->getSalt()), $password, MCRYPT_MODE_CBC, md5(md5($User->getSalt())))) == $User->getHash()) {
+                $User->setTokenApiWS($this->generateToken());
+                $em->persist($User);
+                $em->flush();
+                return $User->getTokenApiWS();
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
 }
