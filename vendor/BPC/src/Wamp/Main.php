@@ -69,6 +69,7 @@ class Main extends WampServer {
 
     public function onOpen(ConnectionInterface $conn) {
         echo "Main : CONNECTION" . PHP_EOL;
+        var_dump($conn);
         //Delegate To All TopicNamespace
         if (!isset($this->Connections[$conn->resourceId])) {
             $this->Connections[$conn->resourceId] = $conn;
@@ -90,6 +91,7 @@ class Main extends WampServer {
     }
 
     public function onSubscribe(ConnectionInterface $conn, $topic) {
+        echo "MAIN :: onSuscribe" . PHP_EOL;
         //Need Check Authentification
         //Delegate To TopicNamespace
         $this->dispatch($topic)->onSubscribe($conn, $topic);
