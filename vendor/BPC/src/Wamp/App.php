@@ -11,7 +11,7 @@ class App extends RatchetApp {
 
     private $main;
 
-    public function __construct(LoopInterface $loop = null, $httpHost = 'projetx.local', $port = 8080, $address = '0.0.0.0') {
+    public function __construct(LoopInterface $loop = null, $httpHost = 'projetx.nordri.fr', $port = 8080, $address = '0.0.0.0') {
         parent::__construct($httpHost, $port, $address, $loop);
         $this->main = new Main("ws.projetx");
 
