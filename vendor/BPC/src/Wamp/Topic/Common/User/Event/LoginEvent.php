@@ -19,8 +19,8 @@ class LoginEvent extends BpcEvent {
 
     public function __construct($UserId, $UserEmail, $UserUsername, $TimeStamp, $typeLogin) {
         $data = array(
-            "User.Id" => $UserId,
-            "User.Email" => $UserEmail,
+            "UserId" => $UserId,
+            "UserEmail" => $UserEmail,
             "Username" => $UserUsername,
             "TimeStamp" => $TimeStamp,
             "TypeLogin" => $typeLogin,
@@ -35,8 +35,8 @@ class LoginEvent extends BpcEvent {
 
     public function getData() {
         $this->data = array(
-            "User.Id" => $this->UserId,
-            "User.Email" => $this->UserEmail,
+            "UserId" => $this->UserId,
+            "UserEmail" => $this->UserEmail,
             "Username" => $this->Username,
             "TimeStamp" => $this->TimeStamp,
             "TypeLogin" => $this->TypeLogin,
@@ -46,8 +46,8 @@ class LoginEvent extends BpcEvent {
 
     public function setData($data) {
         parent::setData($data);
-        $this->UserId = $this->data["User.Id"];
-        $this->UserEmail = $this->data["User.Email"];
+        $this->UserId = $this->data["UserId"];
+        $this->UserEmail = $this->data["UserEmail"];
         $this->Username = $this->data["Username"];
         $this->TimeStamp = $this->data["TimeStamp"];
         $this->TypeLogin = $this->data["TypeLogin"];
