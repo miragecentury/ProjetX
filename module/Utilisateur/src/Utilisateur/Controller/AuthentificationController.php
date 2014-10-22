@@ -2,13 +2,13 @@
 
 namespace Utilisateur\Controller;
 
-use BPC\Wamp\InternalMessage;
+use BPC\Wamp\Topic\Common\User\Event\LoginEvent;
+use DateTime;
 use Utilisateur\Form\InscriptionForm;
 use Utilisateur\Form\LoginForm;
 use Utilisateur\Form\LostpasswordForm;
 use Utilisateur\Mail\ValidationMail;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Stdlib\DateTime;
 use Zend\View\Model\ViewModel;
 
 class AuthentificationController extends AbstractActionController {
@@ -28,14 +28,9 @@ class AuthentificationController extends AbstractActionController {
                     $userMapper = $this->getServiceLocator()->get("A3\Common\Mapper\User");
                     $User = $userMapper->findOneByEmail($this->identity()->getEmail());
                     if ($User->getEmailvalidate()) {
-                        $dateTime = new \DateTime("now");
-                        $message = new InternalMessage("projetx.user.login", array(
-                            "id" => $User->getId(),
-                            "ip" => "127.0.0.1",
-                            "email" => $User->getEmail(),
-                            "datetime" => $dateTime->format(DATE_ATOM)
-                        ));
-                        InternalMessage::send($message);
+                        $dateTime = new DateTime("now");
+                        $loginEvent = new LoginEvent($User->getId(), $User->getEmail(), $User->getUsername(), time());
+                        $loginEvent->sendInternalEvent();
                         if (!$User->getFirstconnect()) {
                             return $this->redirect()->toRoute("home_connected");
                         } else {

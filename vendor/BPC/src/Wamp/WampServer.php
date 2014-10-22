@@ -19,5 +19,6 @@ abstract class WampServer implements WampServerInterface {
     abstract public function onSubscribe(\Ratchet\ConnectionInterface $conn, $topic);
 
     abstract public function onUnSubscribe(\Ratchet\ConnectionInterface $conn, $topic);
-    
+
+    abstract public function onInternalMessage(Event $message);
 }

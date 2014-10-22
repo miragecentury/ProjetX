@@ -13,7 +13,10 @@ class App extends RatchetApp {
 
     public function __construct(LoopInterface $loop = null, $httpHost = 'projetx.local', $port = 8080, $address = '0.0.0.0') {
         parent::__construct($httpHost, $port, $address, $loop);
-        $this->main = new Main();
+        $this->main = new Main("ws.projetx");
+
+
+
         $this->route("/", $this->main);
     }
 
@@ -30,7 +33,9 @@ class App extends RatchetApp {
         echo "# Message : Application PHP :#" . PHP_EOL;
         echo $message . PHP_EOL;
         echo "##############################" . PHP_EOL;
-        $this->main->onInternalMessage(InternalMessage::toObject($message));
+        $Event = new Event();
+        $Event->unserialize($message);
+        $this->main->onInternalMessage($Event);
     }
 
 }

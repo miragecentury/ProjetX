@@ -8,27 +8,24 @@
 
             ab.connect(wsuri,
                     // WAMP session was established
-                            function (session) {
-
-                                // subscribe to topic
-                                session.subscribe("projetx.ping",
-                                        // on event publication callback
-                                                function (topic, event) {
-                                                    console.log("got ping response");
-                                                    console.debug(topic);
-                                                    console.debug(event);
-                                                }
-                                        );
-
-                                        // publish event on a topic
-                                        session.publish("projetx.ping", {});
-                                    },
-                                    // WAMP session is gone
-                                            function (code, reason) {
-                                                console.log(reason);
-                                            }
-                                    );
-                                };
+                function (session) {
+                    // subscribe to topic
+                    session.subscribe(
+                        "ws.projetx.common.user.login",
+                        // on event publication callback
+                        function (topic, event) {
+                            console.log("User Login");
+                            console.debug(topic);
+                            console.debug(event);
+                        }
+                    );
+                },
+                // WAMP session is gone
+                function (code, reason) {
+                    console.log(reason);
+                }
+            );
+        };
     </script>
 </head>
 <body>
