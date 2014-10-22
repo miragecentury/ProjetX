@@ -5,20 +5,25 @@ namespace BPC\Wamp;
 use BPC\Wamp\Main;
 use Ratchet\App as RatchetApp;
 use Ratchet\ComponentInterface;
+use Ratchet\Wamp\WampServer;
+use Ratchet\WebSocket\WsServer;
 use React\EventLoop\LoopInterface;
+use Symfony\Component\Routing\Route;
 
 class App extends RatchetApp {
 
     private $main;
 
-    public function __construct(LoopInterface $loop = null, $httpHost = "projetx.nordri.fr", $port = 8080, $address = '0.0.0.0') {
+    public function __construct(LoopInterface $loop = null, $httpHost = "*", $port = 8080, $address = '0.0.0.0') {
         parent::__construct($httpHost, $port, $address, $loop);
         $this->main = new Main("ws.projetx");
-        $this->route("/", $this->main, array("localhost", "projetx.local", "ip.nordri.fr", "nordri.fr", "projetx.nordri.fr", "*.nordri.fr", "*"));
+        $this->route("/", $this->main, array("*"));
     }
 
     public function route($path, ComponentInterface $controller, array $allowedOrigins = array("*", "projetx.local", "nordri.fr", "ip.nordri.fr", "projetx.nordri.fr"), $httpHost = null) {
-        return parent::route($path, $controller, $allowedOrigins, $httpHost);
+        $decorator = new WsServer(new WampServer($controller));
+        $this->routes->add('rr-' . ++$this->_routeCounter, new Route($path, array('_controller' => $decorator), array('Origin' => $this->httpHost), array(), $httpHost));
+        return $decorator;
     }
 
     public function run() {

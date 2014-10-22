@@ -68,7 +68,7 @@ class Main extends WampServer {
     }
 
     public function onOpen(ConnectionInterface $conn) {
-
+        echo "Main : CONNECTION" . PHP_EOL;
         //Delegate To All TopicNamespace
         if (!isset($this->Connections[$conn->resourceId])) {
             $this->Connections[$conn->resourceId] = $conn;
