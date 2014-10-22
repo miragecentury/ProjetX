@@ -20,12 +20,6 @@ class App extends RatchetApp {
         $this->route("/", $this->main, array('*'));
     }
 
-//    public function route($path, ComponentInterface $controller, array $allowedOrigins = array("*", "projetx.local", "nordri.fr", "ip.nordri.fr", "projetx.nordri.fr"), $httpHost = null) {
-//        $decorator = new WsServer(new WampServer($controller));
-//        $this->routes->add('rr-' . ++$this->_routeCounter, new Route($path, array('_controller' => $decorator), array('Origin' => $this->httpHost), array(), $httpHost));
-//        return $decorator;
-//    }
-
     public function run() {
         parent::run();
     }
