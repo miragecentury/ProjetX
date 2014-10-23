@@ -122,4 +122,84 @@ return array(
             ),
         ),
     ),
+    'my_wamp_security' => array(
+        "roles" => array(
+            "anonymous",
+            "utilisateur",
+            "moderateur",
+            "administrateur",
+        ),
+        "topics" => array(
+            "ws.projetx" => array(
+                "call" => array("administrateur"),
+                "suscribe" => array("administrateur"),
+                "publish" => array("administrateur"),
+                "childs" => array(
+                    "common" => array(
+                        "call" => array("administrateur"),
+                        "suscribe" => array("administrateur"),
+                        "publish" => array("administrateur"),
+                        "childs" => array(
+                            "user" => array(
+                                "call" => array("administrateur"),
+                                "suscribe" => array("administrateur"),
+                                "publish" => array("administrateur"),
+                                "childs" => array(
+                                    "login" => array(
+                                        "call" => array("anonymous"),
+                                        "suscribe" => array("administrateur"),
+                                        "publish" => array("administrateur"),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                    "system" => array(
+                        "call" => array("administrateur"),
+                        "suscribe" => array("administrateur"),
+                        "publish" => array("administrateur"),
+                        "childs" => array(
+                            "log" => array(
+                                "call" => array("administrateur"),
+                                "suscribe" => array("administrateur"),
+                                "publish" => array("administrateur"),
+                                "childs" => array(
+                                    "debug" => array(
+                                        "call" => array("administrateur"),
+                                        "suscribe" => array("administrateur"),
+                                        "publish" => array("administrateur"),
+                                    ),
+                                    "info" => array(
+                                        "call" => null,
+                                        "suscribe" => array("administrateur"),
+                                        "publish" => array("administrateur"),
+                                    ),
+                                    "warning" => array(
+                                        "call" => null,
+                                        "suscribe" => array("administrateur"),
+                                        "publish" => array("administrateur"),
+                                    ),
+                                    "error" => array(
+                                        "call" => null,
+                                        "suscribe" => array("administrateur"),
+                                        "publish" => array("administrateur"),
+                                    ),
+                                    "critical" => array(
+                                        "call" => null,
+                                        "suscribe" => array("administrateur"),
+                                        "publish" => array("administrateur"),
+                                    ),
+                                ),
+                            ),
+                            "ping" => array(
+                                "call" => null,
+                                "suscribe" => array("public"),
+                                "publish" => array("public"),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
 );

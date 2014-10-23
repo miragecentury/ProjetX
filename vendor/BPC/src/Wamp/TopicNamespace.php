@@ -4,29 +4,41 @@ namespace BPC\Wamp;
 
 use Exception;
 use Ratchet\ConnectionInterface;
+use Zend\Mvc\Application;
 
 class TopicNamespace extends WampServer {
 
+    use WampServerInterfaceTrait;
+
+    /**
+     *
+     * @var Application 
+     */
     protected $Root;
     protected $name;
     protected $TopicCategories = array();
 
     /**
-     * 
-     * @param type $Root
-     * @param type $name
+     * Définition d'un Topic Namespace
+     * Nécessite la définition d'un Main (endpoint)
+     * @param Main $Root
+     * @param string $name
      */
-    public function __construct($Root, $name) {
+    public function __construct(Application $Root, $name) {
         $this->Root = $Root;
         $this->name = $name;
     }
 
+    /**
+     * Récupère le nom du Namespace (valide pour les chemins de topic)
+     * @return type
+     */
     public function getName() {
         return $this->name;
     }
 
     /**
-     * 
+     * Ajout d'une catégorie au namespace
      * @param TopicCategorie $TopicCategorie
      * @throws Exception
      */
@@ -39,7 +51,7 @@ class TopicNamespace extends WampServer {
     }
 
     /**
-     * 
+     * Supression d'une catégorie (détruit les childs de celle-ci)
      * @param TopicCategorie $TopicCategorie
      * @throws Exception
      */
@@ -52,7 +64,7 @@ class TopicNamespace extends WampServer {
     }
 
     /**
-     * 
+     * Retour la Catégorie concerné par le chemin de topic, retour une exception si non trouvé
      * @param string $topic
      * @return TopicCategorie
      * @throws Exception
@@ -70,7 +82,7 @@ class TopicNamespace extends WampServer {
     }
 
     /**
-     * 
+     * Récupération des events onCall sur le namespace puis dispatch à la catégorie concerné
      * @param ConnectionInterface $conn
      * @param type $id
      * @param type $topic
@@ -82,7 +94,7 @@ class TopicNamespace extends WampServer {
     }
 
     /**
-     * 
+     * Récupération des events onClose sur le namespace puis dispatch à la catégorie concerné
      * @param ConnectionInterface $conn
      */
     public function onClose(ConnectionInterface $conn) {
@@ -92,7 +104,7 @@ class TopicNamespace extends WampServer {
     }
 
     /**
-     * 
+     * Récupération des events onClose sur le namespace puis dispatch à la catégorie concerné
      * @param ConnectionInterface $conn
      * @param Exception $e
      */
@@ -148,50 +160,6 @@ class TopicNamespace extends WampServer {
      */
     public function onInternalMessage(Event $event) {
         $this->dispatch($event->getTopic())->onInternalMessage($event);
-    }
-
-    public function getRoot($topic) {
-        $regex = "#^ws\.([a-zA-Z]+)\.#";
-        $matches = array();
-        preg_match($regex, $topic, $matches);
-        if (isset($matches[1])) {
-            return "ws." . $matches[1];
-        } else {
-            throw new Exception("Cannot get Root topic", 000);
-        }
-    }
-
-    static public function getNamespace($topic) {
-        $regex = "#^" . str_replace(".", "\.", self::getRoot($topic)) . "\.([a-zA-Z]+)#";
-        $matches = array();
-        preg_match($regex, $topic, $matches);
-        if (isset($matches[1])) {
-            return $matches[1];
-        } else {
-            throw new Exception("Cannot get NamespaceF topic", 000);
-        }
-    }
-
-    static public function getCategorie($topic) {
-        $regex = "#^" . str_replace(".", "\.", self::getRoot($topic)) . "\." . self::getNamespace($topic) . "\.([a-zA-Z]+)#";
-        $matches = array();
-        preg_match($regex, $topic, $matches);
-        if (isset($matches[1])) {
-            return $matches[1];
-        } else {
-            throw new Exception("Cannot get Root topic", 000);
-        }
-    }
-
-    static public function getEvent($topic) {
-        $regex = "#^" . str_replace(".", "\.", self::getRoot($topic)) . "\." . self::getNamespace($topic) . "\." . self::getCategorie($topic) . "\.([a-zA-Z]+)$#";
-        $matches = array();
-        preg_match($regex, $topic, $matches);
-        if (isset($matches[1])) {
-            return $matches[1];
-        } else {
-            throw new Exception("Cannot get Root topic", 000);
-        }
     }
 
 }

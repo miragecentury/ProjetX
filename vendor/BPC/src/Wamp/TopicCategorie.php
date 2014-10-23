@@ -7,7 +7,13 @@ use Ratchet\ConnectionInterface;
 
 class TopicCategorie extends WampServer {
 
+    use WampServerInterfaceTrait;
+
     protected $name;
+    /**
+     *
+     * @var Main 
+     */
     protected $Root;
     protected $TopicNamespace;
     protected $Topics = array();
@@ -20,7 +26,7 @@ class TopicCategorie extends WampServer {
         return $this->$TopicNamespace;
     }
 
-    public function __construct($Root, $TopicNamespace, $name) {
+    public function __construct(Main $Root, $TopicNamespace, $name) {
         $this->Root = $Root;
         $this->TopicNamespace = $TopicNamespace;
         $this->name = $name;
@@ -84,50 +90,6 @@ class TopicCategorie extends WampServer {
 
     public function onInternalMessage(Event $event) {
         $this->dispatch($event->getTopic())->onInternalMessage($event);
-    }
-
-    public function getRoot($topic) {
-        $regex = "#^ws\.([a-zA-Z]+)\.#";
-        $matches = array();
-        preg_match($regex, $topic, $matches);
-        if (isset($matches[1])) {
-            return "ws." . $matches[1];
-        } else {
-            throw new Exception("Cannot get Root topic", 000);
-        }
-    }
-
-    static public function getNamespace($topic) {
-        $regex = "#^" . str_replace(".", "\.", self::getRoot($topic)) . "\.([a-zA-Z]+)#";
-        $matches = array();
-        preg_match($regex, $topic, $matches);
-        if (isset($matches[1])) {
-            return $matches[1];
-        } else {
-            throw new Exception("Cannot get NamespaceF topic", 000);
-        }
-    }
-
-    static public function getCategorie($topic) {
-        $regex = "#^" . str_replace(".", "\.", self::getRoot($topic)) . "\." . self::getNamespace($topic) . "\.([a-zA-Z]+)#";
-        $matches = array();
-        preg_match($regex, $topic, $matches);
-        if (isset($matches[1])) {
-            return $matches[1];
-        } else {
-            throw new Exception("Cannot get Root topic", 000);
-        }
-    }
-
-    static public function getEvent($topic) {
-        $regex = "#^" . str_replace(".", "\.", self::getRoot($topic)) . "\." . self::getNamespace($topic) . "\." . self::getCategorie($topic) . "\.([a-zA-Z]+)$#";
-        $matches = array();
-        preg_match($regex, $topic, $matches);
-        if (isset($matches[1])) {
-            return $matches[1];
-        } else {
-            throw new Exception("Cannot get Root topic", 000);
-        }
     }
 
 }

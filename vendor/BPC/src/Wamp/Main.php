@@ -2,24 +2,39 @@
 
 namespace BPC\Wamp;
 
+use BPC\Wamp\Topic\CommonTopicNamespace;
+use BPC\Wamp\Topic\SystemTopicNamespace;
 use BPC\Wamp\WampServer;
 use Exception;
 use Ratchet\ConnectionInterface;
+use Zend\Mvc\Application;
+use Zend\ServiceManager\ServiceManager;
 
 class Main extends WampServer {
 
+    use WampServerInterfaceTrait;
+
     protected $root;
+    /**
+     *
+     * @var Application 
+     */
     protected $ZendApp;
     protected $TopicNamespaces = array();
     protected $Connections = array();
     protected $AuthenticateConnections = array();
 
-    public function __construct($ZendApp, $root) {
+    public function __construct(Application $ZendApp, $root) {
         $this->root = $root;
         $this->ZendApp = $ZendApp;
-        $this->add(new Topic\CommonTopicNamespace($this));
+        $this->add(new CommonTopicNamespace($this));
+        $this->add(new SystemTopicNamespace($this));
     }
 
+    /**
+     * 
+     * @return ServiceManager
+     */
     public function getServiceLocator() {
         return $this->ZendApp->getServiceManager();
     }
@@ -74,14 +89,12 @@ class Main extends WampServer {
     }
 
     public function onOpen(ConnectionInterface $conn) {
-        echo "Main : CONNECTION : start" . PHP_EOL;
         //Delegate To All TopicNamespace
         if (!isset($this->Connections[$conn->resourceId])) {
             $this->Connections[$conn->resourceId] = $conn;
         } else {
             throw new Exception("Connection RessourceId already defined", 000);
         }
-        echo "Main : CONNECTION : end" . PHP_EOL;
     }
 
     public function onCall(ConnectionInterface $conn, $id, $topic, array $params) {
@@ -97,7 +110,6 @@ class Main extends WampServer {
     }
 
     public function onSubscribe(ConnectionInterface $conn, $topic) {
-        echo "MAIN :: onSuscribe" . PHP_EOL;
         //Need Check Authentification
         //Delegate To TopicNamespace
         $this->dispatch($topic)->onSubscribe($conn, $topic);
@@ -119,50 +131,6 @@ class Main extends WampServer {
         }
         foreach ($this->TopicNamespaces as $TopicNamespace) {
             $this->remove($TopicNamespace);
-        }
-    }
-
-    public function getRoot($topic) {
-        $regex = "#^ws\.([a-zA-Z]+)\.#";
-        $matches = array();
-        preg_match($regex, $topic, $matches);
-        if (isset($matches[1])) {
-            return "ws." . $matches[1];
-        } else {
-            throw new Exception("Cannot get Root topic", 000);
-        }
-    }
-
-    static public function getNamespace($topic) {
-        $regex = "#^" . str_replace(".", "\.", self::getRoot($topic)) . "\.([a-zA-Z]+)#";
-        $matches = array();
-        preg_match($regex, $topic, $matches);
-        if (isset($matches[1])) {
-            return $matches[1];
-        } else {
-            throw new Exception("Cannot get NamespaceF topic", 000);
-        }
-    }
-
-    static public function getCategorie($topic) {
-        $regex = "#^" . str_replace(".", "\.", self::getRoot($topic)) . "\." . self::getNamespace($topic) . "\.([a-zA-Z]+)#";
-        $matches = array();
-        preg_match($regex, $topic, $matches);
-        if (isset($matches[1])) {
-            return $matches[1];
-        } else {
-            throw new Exception("Cannot get Root topic", 000);
-        }
-    }
-
-    static public function getEvent($topic) {
-        $regex = "#^" . str_replace(".", "\.", self::getRoot($topic)) . "\." . self::getNamespace($topic) . "\." . self::getCategorie($topic) . "\.([a-zA-Z]+)$#";
-        $matches = array();
-        preg_match($regex, $topic, $matches);
-        if (isset($matches[1])) {
-            return $matches[1];
-        } else {
-            throw new Exception("Cannot get Root topic", 000);
         }
     }
 
