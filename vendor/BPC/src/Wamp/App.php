@@ -9,6 +9,10 @@ use Zend\Mvc\Application;
 
 class App extends RatchetApp {
 
+    /**
+     *
+     * @var Main 
+     */
     private $main;
 
     public function __construct(Application $Zendapp, LoopInterface $loop = null, $httpHost = "projetx.nordri.fr", $port = 8080, $address = '0.0.0.0') {

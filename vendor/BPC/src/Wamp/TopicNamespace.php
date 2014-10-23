@@ -12,7 +12,7 @@ class TopicNamespace extends WampServer {
 
     /**
      *
-     * @var Application 
+     * @var Main 
      */
     protected $Root;
     protected $name;
@@ -24,7 +24,7 @@ class TopicNamespace extends WampServer {
      * @param Main $Root
      * @param string $name
      */
-    public function __construct(Application $Root, $name) {
+    public function __construct(Main $Root, $name) {
         $this->Root = $Root;
         $this->name = $name;
     }

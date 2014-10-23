@@ -87,6 +87,7 @@ trait WampServerInterfaceTrait {
     }
 
     static public function checkSecurity($topic, $conn, ServiceLocator $sl) {
+        $sl->get("");
         return false;
     }
 
