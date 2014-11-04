@@ -7,7 +7,7 @@ use Zend\View\Model\JsonModel;
 
 class LauncherController extends AbstractActionController {
 
-    public function statusAction() {
+    public function statutAction() {
         return new JsonModel(array("ok" => true));
     }
 
