@@ -43,7 +43,7 @@ header('Access-Control-Allow-Origin: *');
                 $("#eventtable").append("<tr><td>" + formattedTime + "</td><td>" + topic + "</td><td>" + JSON.stringify(ar.data) + "</td></tr>");
             };
             testauth = function (session) {
-                session.call("ws.projetx.common.user.login", $("#exampleInputEmail1").val(), $("#exampleInputFile").val()).then(function (result) {
+                session.call("ws.projetx.common.user.login", $("#exampleInputEmail1").val(), $("#exampleInputFile").val(),1).then(function (result) {
                     // do stuff with the result
                     console.debug(result);
                     if (result.token == null) {
