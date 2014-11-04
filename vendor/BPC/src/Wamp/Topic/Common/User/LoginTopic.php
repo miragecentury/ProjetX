@@ -22,8 +22,12 @@ class LoginTopic extends Topic {
     public function onCall(ConnectionInterface $conn, $id, $topic, array $params) {
         echo "CALL LOGIN" . PHP_EOL;
         $UserService = $this->Root->getServiceLocator()->get("A3\Common\Service\User");
-        $token = $UserService->getToken($params[0], $params[1]);
-        var_dump(array("email" => $params[0], "token" => $token));
+        if (count($params) >= 3) {
+            $token = $UserService->getToken($params[0], $params[1], $params[2]);
+            var_dump(array("email" => $params[0], "token" => $token));
+        } else {
+            $token = null;
+        }
         return $conn->callResult($id, array("email" => $params[0], "token" => $token));
     }
 

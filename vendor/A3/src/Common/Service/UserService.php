@@ -80,10 +80,24 @@ class UserService implements ServiceLocatorAwareInterface {
         $User = $userMapper->findOneByEmail($email);
         if (is_a($User, "A3\Common\Entity\User")) {
             if (base64_encode(\mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($User->getSalt()), $password, MCRYPT_MODE_CBC, md5(md5($User->getSalt())))) == $User->getHash()) {
-                $User->setTokenApiWS($this->generateToken());
-                $em->persist($User);
-                $em->flush();
-                return $User->getTokenApiWS();
+                if ($mode == 2) {
+                    $User->setTokenApiLauncher($this->generateToken());
+                    $em->persist($User);
+                    $em->flush();
+                    return $User->getTokenApiLauncher();
+                }
+                if ($mode == 1) {
+                    $User->setTokenApiWS($this->generateToken());
+                    $em->persist($User);
+                    $em->flush();
+                    return $User->getTokenApiWS();
+                }
+                if ($mode == 0) {
+                    $User->setTokenApiHttp($this->generateToken());
+                    $em->persist($User);
+                    $em->flush();
+                    return $User->getTokenApiHttp();
+                }
             } else {
                 return null;
             }
