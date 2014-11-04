@@ -8,6 +8,7 @@ return array(
     'modules' => array(
         'DoctrineModule',
         'DoctrineORMModule',
+        'Api',
         'Administrateur',
         'Moderateur',
         'Utilisateur',

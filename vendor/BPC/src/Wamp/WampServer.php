@@ -38,7 +38,7 @@ abstract class WampServer implements WampServerInterface {
 
 trait WampServerInterfaceTrait {
 
-    public function getRoot($topic) {
+    public static function getRoot($topic) {
         $regex = "#^ws\.([a-zA-Z]+)\.#";
         $matches = array();
         preg_match($regex, $topic, $matches);
@@ -49,7 +49,7 @@ trait WampServerInterfaceTrait {
         }
     }
 
-    static public function getNamespace($topic) {
+    public static function getNamespace($topic) {
         $regex = "#^" . str_replace(".", "\.", self::getRoot($topic)) . "\.([a-zA-Z]+)#";
         $matches = array();
         preg_match($regex, $topic, $matches);
@@ -60,7 +60,7 @@ trait WampServerInterfaceTrait {
         }
     }
 
-    static public function getCategorie($topic) {
+    public static function getCategorie($topic) {
         $regex = "#^" . str_replace(".", "\.", self::getRoot($topic)) . "\." . self::getNamespace($topic) . "\.([a-zA-Z]+)#";
         $matches = array();
         preg_match($regex, $topic, $matches);
@@ -71,7 +71,7 @@ trait WampServerInterfaceTrait {
         }
     }
 
-    static public function getEvent($topic) {
+    public static function getEvent($topic) {
         $regex = "#^" . str_replace(".", "\.", self::getRoot($topic)) . "\." . self::getNamespace($topic) . "\." . self::getCategorie($topic) . "\.([a-zA-Z]+)$#";
         $matches = array();
         preg_match($regex, $topic, $matches);
@@ -82,11 +82,11 @@ trait WampServerInterfaceTrait {
         }
     }
 
-    static public function getRole($conn, ServiceLocator $sl) {
+    public static function getRole($conn, ServiceLocator $sl) {
         return "anonymous";
     }
 
-    static public function checkSecurity($topic, $conn, ServiceLocator $sl) {
+    public static function checkSecurity($topic, $conn, ServiceLocator $sl) {
         $sl->get("");
         return false;
     }
